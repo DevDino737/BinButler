@@ -104,67 +104,73 @@
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const binSelect = document.getElementById("bin_location");
-      const otherInput = document.getElementById("other_location");
-      const form = document.getElementById("signupForm");
-      const submitBtn = document.getElementById("submit-btn");
+  document.addEventListener("DOMContentLoaded", function () {
+    const binSelect = document.getElementById("bin_location");
+    const otherInput = document.getElementById("other_location");
+    const form = document.getElementById("signupForm");
+    const submitBtn = document.getElementById("submit-btn");
 
-      // Handle "Other" location toggle
-      function toggleOtherField() {
-        if (binSelect.value === "other") {
-          otherInput.style.display = "block";
-          otherInput.required = true;
-        } else {
-          otherInput.style.display = "none";
-          otherInput.required = false;
-          otherInput.value = "";
+    // Handle "Other" location toggle
+    function toggleOtherField() {
+      if (binSelect.value === "other") {
+        otherInput.style.display = "block";
+        otherInput.required = true;
+      } else {
+        otherInput.style.display = "none";
+        otherInput.required = false;
+        otherInput.value = "";
+      }
+    }
+
+    binSelect.addEventListener("change", toggleOtherField);
+    toggleOtherField();
+
+    // Form submit logic
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      // Handle custom location
+      if (formData.get("bin_location") === "other") {
+        const otherVal = formData.get("other_location").trim();
+        if (otherVal) {
+          formData.set("bin_location", otherVal);
         }
       }
 
-      binSelect.addEventListener("change", toggleOtherField);
-      toggleOtherField();
+      // Disable button + loading state
+      submitBtn.disabled = true;
+      submitBtn.value = "Submitting...";
 
-      // Form submit logic
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        const formData = new FormData(form);
+      fetch(form.action, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => {
+          if (response.ok) {
+            form.style.display = "none";
+            document.getElementById("success-message").style.display = "block";
 
-        // Handle custom location
-        if (formData.get("bin_location") === "other") {
-          const otherVal = formData.get("other_location").trim();
-          if (otherVal) {
-            formData.set("bin_location", otherVal);
+            // ✅ Scroll to top after successful submit
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          } else {
+            alert("There was a problem submitting the form.");
           }
-        }
-
-        // ✅ Disable button + show loading state
-        submitBtn.disabled = true;
-        submitBtn.value = "Submitting...";
-
-        fetch(form.action, {
-          method: "POST",
-          body: formData,
         })
-          .then((response) => {
-            if (response.ok) {
-              form.style.display = "none";
-              document.getElementById("success-message").style.display = "block";
-            } else {
-              alert("There was a problem submitting the form.");
-            }
-          })
-          .catch((error) => {
-            console.error("Error!", error);
-            alert("There was an error. Please try again.");
-          })
-          .finally(() => {
-            // ✅ Re-enable the button after response
-            submitBtn.disabled = false;
-            submitBtn.value = "Submit";
-          });
-      });
+        .catch((error) => {
+          console.error("Error!", error);
+          alert("There was an error. Please try again.");
+        })
+        .finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.value = "Submit";
+        });
     });
-  </script>
+  });
+</script>
+
 </body>
 </html>
