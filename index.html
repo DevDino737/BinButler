@@ -3,121 +3,109 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BinButler</title>
+  <title>BinButler | Trash Day Made Easy</title>
   <link rel="stylesheet" href="MainPage.css">
 </head>
-
 <body>
 
-<!-- NAV -->
+<!-- NAVIGATION -->
 <nav class="navbar">
   <div class="logo">BinButler</div>
-  <a href="#signup" class="nav-btn">Get Started</a>
+  <ul class="nav-links">
+    <li><a href="#how-it-works">How It Works</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#rules">Rules</a></li>
+  </ul>
 </nav>
 
-<!-- HERO -->
-<section class="hero" id="signup">
-  <div class="hero-text">
-    <h1>Trash day, handled.</h1>
-    <p>We take your bins to the curb and back — every week, on time.</p>
-
-    <ul class="trust">
+<!-- HERO + SIGNUP (Front and Center) -->
+<section class="hero">
+  <div class="hero-left">
+    <h1>Trash Day, Handled.</h1>
+    <p>We take your bins to the curb and back — every week, on time. Hassle-free trash service for busy homeowners in St. Louis.</p>
+    <ul class="features">
       <li>✔ Local St. Louis service</li>
-      <li>✔ $50/month — no contracts</li>
+      <li>✔ $50/month — no hidden fees</li>
       <li>✔ Teen-owned & operated</li>
     </ul>
   </div>
-
-  <!-- SIGNUP CARD -->
-  <div class="card">
-    <form id="signupForm"
+  
+  <div class="hero-right card">
+    <h2>Sign Up Today</h2>
+    <form
       action="https://script.google.com/macros/s/AKfycbzYpFlcv6gi0G4wC7nmWIit1oOKF75fxKoT6YFmaugQIZ1D8AFC4p9aUb5j-fT0oNvUOw/exec"
       method="POST">
 
-      <!-- STEP 1 -->
-      <div id="step1">
-        <label>Service Address</label>
-        <input type="text" name="address" placeholder="123 Main St" required>
-        <button type="button" id="nextBtn">Get Started</button>
-      </div>
+      <label>Service Address</label>
+      <input type="text" name="address" placeholder="123 Main St" required>
 
-      <!-- STEP 2 -->
-      <div id="step2" class="hidden">
-        <label>Bin Location</label>
-        <select name="bin_location" required>
-          <option value="">Select</option>
-          <option>Garage</option>
-          <option>Side Yard</option>
-          <option>Backyard</option>
-        </select>
+      <label>Bin Location</label>
+      <select name="bin_location" required>
+        <option value="">Select</option>
+        <option>Garage</option>
+        <option>Side Yard</option>
+        <option>Backyard</option>
+        <option>Other</option>
+      </select>
 
-        <label>Pets on property?</label>
-        <select name="pets" required>
-          <option value="">Select</option>
-          <option>Yes</option>
-          <option>No</option>
-        </select>
+      <label>Do you have pets?</label>
+      <select name="pets" required>
+        <option value="">Select</option>
+        <option>Yes</option>
+        <option>No</option>
+      </select>
 
-        <label>Contact (text or email)</label>
-        <input type="text" name="contact_info" required>
+      <label>Contact Info</label>
+      <input type="text" name="contact_info" placeholder="Phone or Email" required>
 
-        <label>Payment Method</label>
-        <select name="payment_method" required>
-          <option value="">Select</option>
-          <option>PayPal</option>
-          <option>Cash</option>
-        </select>
+      <label>Payment Method</label>
+      <select name="payment_method" required>
+        <option value="">Select</option>
+        <option>PayPal</option>
+        <option>Cash</option>
+      </select>
 
-        <input type="hidden" name="property_access" value="yes">
-
-        <button type="submit">Submit</button>
-      </div>
+      <input type="hidden" name="property_access" value="yes">
+      <button type="submit">Submit</button>
     </form>
-
-    <div id="success" class="hidden">
-      <h3>You're all set 🎉</h3>
-      <p>We’ll contact you shortly.</p>
-    </div>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="section light">
+<section class="section" id="how-it-works">
   <h2>How It Works</h2>
   <div class="steps">
     <div class="step">
-      <h3>1️⃣ Night Before</h3>
-      <p>We roll your bins to the curb.</p>
+      <h3>1. Night Before</h3>
+      <p>We bring your bins to the curb.</p>
     </div>
     <div class="step">
-      <h3>2️⃣ Pickup Day</h3>
-      <p>Your trash gets collected.</p>
+      <h3>2. Pickup Day</h3>
+      <p>Your trash, recycling, and yard waste are collected.</p>
     </div>
     <div class="step">
-      <h3>3️⃣ Same Day</h3>
-      <p>Bins returned neatly.</p>
+      <h3>3. Same Day</h3>
+      <p>Bins returned neatly to your property.</p>
     </div>
   </div>
 </section>
 
 <!-- PRICING -->
-<section class="section green">
+<section class="section pricing" id="pricing">
   <h2>$50 / Month</h2>
-  <p>No contracts. Cancel anytime. Trash, recycling & yard waste included.</p>
+  <p>No hidden fees. Cancel anytime. Trash, recycling & yard waste included.</p>
 </section>
 
 <!-- ABOUT -->
-<section class="section light">
+<section class="section about" id="about">
   <h2>About BinButler</h2>
-  <p>
-    I’m a 15-year-old from St. Louis who started BinButler to make trash day easier.
-    This is a local service run with care and consistency — every single week.
-  </p>
+  <p>I’m a 15-year-old from St. Louis who started BinButler to make trash day easier. Local service, run with care every week.</p>
 </section>
 
-<!-- DETAILS -->
-<section class="section dark">
-  <h2>Service Details</h2>
+<!-- RULES -->
+<section class="section rules-section" id="rules">
+  <h2>Service Guidelines</h2>
   <ul class="rules">
     <li>Garage or gates must be accessible</li>
     <li>Pets secured during service</li>
@@ -127,7 +115,7 @@
 </section>
 
 <footer>
-  <p>© BinButler — St. Louis</p>
+  <p>© 2026 BinButler — St. Louis, MO</p>
 </footer>
 
 <script src="inline-signup.js"></script>
