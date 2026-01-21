@@ -1,192 +1,122 @@
-/* General layout */
-body, html {
+body {
   margin: 0;
-  padding: 0;
-  font-family: 'Advent Pro', sans-serif;
-  scroll-behavior: smooth;
-  overflow-x: hidden;
+  font-family: system-ui, sans-serif;
+  background: #f4faf6;
+  color: #1a1a1a;
 }
 
-/* Section setup */
-section {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-}
+.hidden { display: none; }
 
-/* Navbar styling */
+/* NAV */
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 25px 20px;
-  background-color: #fff;
-  border-bottom: 1px solid #eaeaea;
   position: fixed;
-  width: 100%;
   top: 0;
-  z-index: 1000;
-  font-weight: bold;
-  transition: padding 0.3s ease, background-color 0.3s ease;
-}
-
-/* Shrinking effect */
-.navbar.shrink {
-  padding: 10px 20px;
-  background-color: #008631;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.25);
-}
-
-.navbar.shrink a {
-  color: white;
-  transition: color 0.3s ease;
-}
-
-/* Logo */
-.logo a {
-  font-size: 24px;
-  font-weight: bold;
-  text-decoration: none;
-  color: black;
-  transition: color 0.3s ease;
-}
-
-/* Navigation links */
-.nav-links {
-  list-style: none;
+  width: 100%;
+  padding: 16px 24px;
+  background: white;
   display: flex;
-  gap: 20px;
-}
-
-.nav-links li a {
-  text-decoration: none;
-  color: black;
-  font-size: 16px;
-  transition: color 0.3s;
-}
-
-/* Sign up button */
-.Sign-Up a {
-  display: inline-block;
-  background-color: #333;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 25px;
-  text-decoration: none;
-  font-weight: bold;
-  margin-right: 25px;
-  transition: all 0.3s ease;
-}
-
-.Sign-Up a:hover {
-  background-color: #008631;
-}
-
-/* Section colors */
-#Frontpage { background-color: #ffffff; }
-#whatcost { background-color: #30b330; color: white; }
-#about { background-color: #008631; color: white; }
-#Rules { background-color: #126b32; color: white; }
-
-/* Headings */
-h1 { font-size: 36px; }
-h2 { font-size: 38px; text-align: center; }
-p { font-size: 20px; }
-
-/* Frontpage content tweaks */
-#Frontpage .content {
-  text-align: center; /* center text and image */
-}
-
-#Frontpage img {
-  width: 300px;       /* square for perfect circle */
-  height: 300px;
-  border-radius: 50%; /* make image circular */
-  display: block;
-  margin: 20px auto 0; /* center horizontally and add top margin */
-}
-
-#Frontpage p {
-  text-align: center;
-  margin-top: 10px;
-  font-size: 20px;
-  color: #000;
-}
-
-/* What & Cost section */
-#whatcost {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 60px 20px;
-  text-align: center;
-}
-
-#whatcost h2 {
-  font-size: 38px;
-  font-weight: bold;
-  color: white;
-  margin-bottom: 40px;
-}
-
-#whatcost .content {
-  display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 40px;
-  max-width: 1000px;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,.05);
+  z-index: 1000;
 }
 
-#whatcost p {
-  flex: 1;
-  font-size: 20px;
-  line-height: 1.6;
+.nav-btn {
+  text-decoration: none;
+  background: #0f7a34;
   color: white;
-  text-align: left;
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-weight: bold;
 }
 
-#whatcost img {
-  flex: 1;
-  max-width: 300px;
-  border-radius: 50%;
+/* HERO */
+.hero {
+  max-width: 1100px;
+  margin: auto;
+  padding: 140px 20px 80px;
+  display: grid;
+  gap: 40px;
 }
 
-/* Mobile responsive */
-@media (max-width: 768px) {
-  /* What & Cost section adjustments */
-  #whatcost h2 {
-    margin-bottom: 20px;
-  }
-
-  #whatcost .content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  #whatcost p {
-    text-align: center;
-  }
-
-  #whatcost img {
-    max-width: 200px;
-  }
-
-  /* General mobile tweaks */
-  h1 {
-    font-size: 28px;
-    text-align: center;
-  }
-
-  .nav-links {
-    flex-direction: column;
-    position: absolute;
-    top: 60px;
-    right: 0;
-    display: none;
-    padding: 10px;
+@media (min-width: 900px) {
+  .hero {
+    grid-template-columns: 1.2fr 1fr;
   }
 }
 
+.hero-text h1 { font-size: 44px; }
+
+.trust {
+  list-style: none;
+  padding: 0;
+}
+
+.trust li { margin: 8px 0; }
+
+/* CARD */
+.card {
+  background: white;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.08);
+}
+
+label {
+  display: block;
+  margin-top: 14px;
+  font-weight: 600;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: #0f7a34;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* SECTIONS */
+.section {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.section.light { background: #fff; }
+.section.green { background: #0f7a34; color: white; }
+.section.dark { background: #145c33; color: white; }
+
+.steps {
+  display: grid;
+  gap: 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+@media (min-width: 700px) {
+  .steps { grid-template-columns: repeat(3,1fr); }
+}
+
+.rules {
+  list-style: none;
+  padding: 0;
+}
+
+footer {
+  padding: 30px;
+  text-align: center;
+  background: #0f7a34;
+  color: white;
+}
