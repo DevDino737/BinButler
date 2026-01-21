@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<!-- NAVIGATION -->
+<!-- NAVBAR -->
 <nav class="navbar">
   <div class="logo">BinButler</div>
   <ul class="nav-links">
@@ -16,10 +16,11 @@
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#rules">Rules</a></li>
+    <li><a href="#faq">FAQ</a></li>
   </ul>
 </nav>
 
-<!-- HERO + SIGNUP (Front and Center) -->
+<!-- HERO + SIGNUP -->
 <section class="hero">
   <div class="hero-left">
     <h1>Trash Day, Handled.</h1>
@@ -28,12 +29,16 @@
       <li>✔ Local St. Louis service</li>
       <li>✔ $50/month — no hidden fees</li>
       <li>✔ Teen-owned & operated</li>
+      <li>✔ Trash, recycling & yard waste included</li>
     </ul>
+    <p>Sign up below and never worry about trash day again!</p>
   </div>
   
+  <!-- Collapsible signup for mobile -->
   <div class="hero-right card">
     <h2>Sign Up Today</h2>
-    <form
+    <button id="toggle-form">Tap to Sign Up</button>
+    <form id="signupForm" class="hidden-form"
       action="https://script.google.com/macros/s/AKfycbzYpFlcv6gi0G4wC7nmWIit1oOKF75fxKoT6YFmaugQIZ1D8AFC4p9aUb5j-fT0oNvUOw/exec"
       method="POST">
 
@@ -78,15 +83,34 @@
   <div class="steps">
     <div class="step">
       <h3>1. Night Before</h3>
-      <p>We bring your bins to the curb.</p>
+      <p>We bring your bins to the curb for pickup day.</p>
     </div>
     <div class="step">
       <h3>2. Pickup Day</h3>
-      <p>Your trash, recycling, and yard waste are collected.</p>
+      <p>Your trash, recycling, and yard waste are collected efficiently.</p>
     </div>
     <div class="step">
       <h3>3. Same Day</h3>
-      <p>Bins returned neatly to your property.</p>
+      <p>Bins returned neatly to your property — no lifting required!</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="section green" id="why-us">
+  <h2>Why Choose BinButler?</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Reliable</h3>
+      <p>We show up on time every week. You never have to worry about missing pickup days.</p>
+    </div>
+    <div class="card">
+      <h3>Affordable</h3>
+      <p>Only $50/month with no hidden fees — all bins included. Cancel anytime.</p>
+    </div>
+    <div class="card">
+      <h3>Convenient</h3>
+      <p>Take the stress out of trash day. Focus on what matters while we handle the bins.</p>
     </div>
   </div>
 </section>
@@ -94,13 +118,13 @@
 <!-- PRICING -->
 <section class="section pricing" id="pricing">
   <h2>$50 / Month</h2>
-  <p>No hidden fees. Cancel anytime. Trash, recycling & yard waste included.</p>
+  <p>No hidden fees. Trash, recycling, & yard waste included. Cancel anytime.</p>
 </section>
 
 <!-- ABOUT -->
 <section class="section about" id="about">
   <h2>About BinButler</h2>
-  <p>I’m a 15-year-old from St. Louis who started BinButler to make trash day easier. Local service, run with care every week.</p>
+  <p>Hi! I’m a 15-year-old from St. Louis who started BinButler to make trash day easier for neighbors. This is a small, local service run with care every week.</p>
 </section>
 
 <!-- RULES -->
@@ -114,10 +138,37 @@
   </ul>
 </section>
 
+<!-- FAQ -->
+<section class="section faq" id="faq">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-item">
+    <h3>What if it rains?</h3>
+    <p>We still handle your bins safely in light rain. Severe weather may cause delays, but we’ll notify you.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Do I need to be home?</h3>
+    <p>Nope! We take bins to the curb and back without needing you to be home, as long as property access is available.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Can I cancel anytime?</h3>
+    <p>Yes! No contracts — you can stop service at any time.</p>
+  </div>
+</section>
+
 <footer>
   <p>© 2026 BinButler — St. Louis, MO</p>
+  <p>Call (636)-231-5667</p>
 </footer>
 
-<script src="inline-signup.js"></script>
+<script>
+  // Collapse / Expand signup form on mobile
+  const toggleBtn = document.getElementById('toggle-form');
+  const form = document.getElementById('signupForm');
+
+  toggleBtn.addEventListener('click', () => {
+    form.classList.toggle('hidden-form');
+    form.scrollIntoView({behavior: 'smooth'});
+  });
+</script>
 </body>
 </html>
