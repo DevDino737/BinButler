@@ -1,174 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BinButler | Trash Day Made Easy</title>
-  <link rel="stylesheet" href="MainPage.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BinButler | Trash Day, Handled</title>
+  <link rel="stylesheet" href="MainPage.css" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
+
 <body>
 
 <!-- NAVBAR -->
-<nav class="navbar">
+<header class="navbar">
   <div class="logo">BinButler</div>
-  <ul class="nav-links">
-    <li><a href="#how-it-works">How It Works</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#rules">Rules</a></li>
-    <li><a href="#faq">FAQ</a></li>
-  </ul>
-</nav>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#rules">Rules</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </nav>
+</header>
 
-<!-- HERO + SIGNUP -->
-<section class="hero">
-  <div class="hero-left">
+<!-- HERO / SIGNUP -->
+<section id="hero" class="hero">
+  <div class="hero-left fade-up">
     <h1>Trash Day, Handled.</h1>
-    <p>We take your bins to the curb and back — every week, on time. Hassle-free trash service for busy homeowners in St. Louis.</p>
+    <p>
+      We take your bins to the curb and back — every week, on time.
+      Hassle-free trash service for busy homeowners in St. Louis.
+    </p>
+
     <ul class="features">
       <li>✔ Local St. Louis service</li>
       <li>✔ $50/month — no hidden fees</li>
       <li>✔ Teen-owned & operated</li>
       <li>✔ Trash, recycling & yard waste included</li>
     </ul>
-    <p>Sign up below and never worry about trash day again!</p>
   </div>
-  
-  <!-- Collapsible signup for mobile -->
-  <div class="hero-right card">
-    <h2>Sign Up Today</h2>
-    <button id="toggle-form">Tap to Sign Up</button>
-    <form id="signupForm" class="hidden-form"
-      action="https://script.google.com/macros/s/AKfycbzYpFlcv6gi0G4wC7nmWIit1oOKF75fxKoT6YFmaugQIZ1D8AFC4p9aUb5j-fT0oNvUOw/exec"
-      method="POST">
 
-      <label>Service Address</label>
-      <input type="text" name="address" placeholder="123 Main St" required>
+  <!-- SUCCESS POPUP -->
+  <div id="successPopup" class="popup hidden">
+    <div class="popup-card">
+      <h2>🎉 You're Signed Up!</h2>
+      <p>
+      We’ve received your info.<br />
+      BinButler will contact you shortly to get started.
+      </p>
+      <button id="closePopup">Got it</button>
+    </div>
+  </div>
+
+
+  <div class="hero-right signup-card fade-up">
+    <h2>Sign Up Today</h2>
+    <button id="openForm">Tap to Sign Up</button>
+
+        <form
+          id="signupForm"
+          class="hidden"
+          action="https://script.google.com/macros/s/AKfycbzYpFlcv6gi0G4wC7nmWIit1oOKF75fxKoT6YFmaugQIZ1D8AFC4p9aUb5j-fT0oNvUOw/exec"
+          method="POST"
+       >
+
+      <input type="text" placeholder="Full Name" required />
+      <input type="text" placeholder="Service Address" required />
 
       <label>Bin Location</label>
-      <select name="bin_location" required>
-        <option value="">Select</option>
-        <option>Garage</option>
-        <option>Side Yard</option>
-        <option>Backyard</option>
-        <option>Other</option>
+      <select id="bin_location" required>
+        <option value="">Select location</option>
+        <option value="garage">Garage</option>
+        <option value="side">Side Yard</option>
+        <option value="back">Backyard</option>
+        <option value="other">Other</option>
       </select>
 
-      <label>Do you have pets?</label>
-      <select name="pets" required>
-        <option value="">Select</option>
-        <option>Yes</option>
-        <option>No</option>
+      <div id="other-container" class="hidden">
+        <input type="text" placeholder="Please describe location" />
+      </div>
+
+      <label>Preferred Contact</label>
+      <select required>
+        <option value="">Choose one</option>
+        <option>Email</option>
+        <option>Text</option>
       </select>
 
-      <label>Contact Info</label>
-      <input type="text" name="contact_info" placeholder="Phone or Email" required>
-
-      <label>Payment Method</label>
-      <select name="payment_method" required>
-        <option value="">Select</option>
-        <option>PayPal</option>
-        <option>Cash</option>
-      </select>
-
-      <input type="hidden" name="property_access" value="yes">
-      <button type="submit">Submit</button>
+      <input type="submit" value="Submit Request" />
+      <p class="micro-copy">No payment required until confirmation</p>
     </form>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section class="section" id="how-it-works">
-  <h2>How It Works</h2>
-  <div class="steps">
-    <div class="step">
-      <h3>1. Night Before</h3>
-      <p>We bring your bins to the curb for pickup day.</p>
-    </div>
-    <div class="step">
-      <h3>2. Pickup Day</h3>
-      <p>Your trash, recycling, and yard waste are collected efficiently.</p>
-    </div>
-    <div class="step">
-      <h3>3. Same Day</h3>
-      <p>Bins returned neatly to your property — no lifting required!</p>
-    </div>
-  </div>
-</section>
-
-<!-- WHY CHOOSE US -->
-<section class="section green" id="why-us">
-  <h2>Why Choose BinButler?</h2>
-  <div class="cards">
-    <div class="card">
-      <h3>Reliable</h3>
-      <p>We show up on time every week. You never have to worry about missing pickup days.</p>
-    </div>
-    <div class="card">
-      <h3>Affordable</h3>
-      <p>Only $50/month with no hidden fees — all bins included. Cancel anytime.</p>
-    </div>
-    <div class="card">
-      <h3>Convenient</h3>
-      <p>Take the stress out of trash day. Focus on what matters while we handle the bins.</p>
-    </div>
-  </div>
-</section>
-
 <!-- PRICING -->
-<section class="section pricing" id="pricing">
-  <h2>$50 / Month</h2>
-  <p>No hidden fees. Trash, recycling, & yard waste included. Cancel anytime.</p>
+<section id="pricing" class="section pricing">
+  <div class="price-card">
+    <h3>Only</h3>
+    <h2>$50<span>/month</span></h2>
+    <p>
+      No hidden fees<br />
+      Trash, recycling & yard waste included<br />
+      Cancel anytime
+      <br /> 
+      ($12.50) A week 
+    </p>
+  </div>
 </section>
+
 
 <!-- ABOUT -->
-<section class="section about" id="about">
+<section id="about" class="section">
   <h2>About BinButler</h2>
-  <p>Hi! I’m a 15-year-old from St. Louis who started BinButler to make trash day easier for neighbors. This is a small, local service run with care every week.</p>
+  <p>
+    Hi! I’m a 15-year-old from St. Louis who started BinButler to make trash
+    day easier for neighbors. This is a small, local service run with care
+    every week.
+  </p>
 </section>
 
 <!-- RULES -->
-<section class="section rules-section" id="rules">
+<section id="rules" class="section">
   <h2>Service Guidelines</h2>
-  <ul class="rules">
-    <li>Garage or gates must be accessible</li>
-    <li>Pets secured during service</li>
-    <li>Bins not overloaded</li>
-    <li>Residential bins only</li>
-  </ul>
+  <div class="rules-grid">
+    <div>🚪 Garage or gates accessible</div>
+    <div>🐕 Pets secured</div>
+    <div>⚠️ Bins not overloaded</div>
+    <div>🏠 Residential bins only</div>
+  </div>
 </section>
 
+
 <!-- FAQ -->
-<section class="section faq" id="faq">
-  <h2>Frequently Asked Questions</h2>
+<section id="faq" class="section">
+  <h2>FAQ</h2>
   <div class="faq-item">
-    <h3>What if it rains?</h3>
-    <p>We still handle your bins safely in light rain. Severe weather may cause delays, but we’ll notify you.</p>
+    <strong>Do I need to be home?</strong>
+    <p>No — we handle everything for you.</p>
   </div>
   <div class="faq-item">
-    <h3>Do I need to be home?</h3>
-    <p>Nope! We take bins to the curb and back without needing you to be home, as long as property access is available.</p>
-  </div>
-  <div class="faq-item">
-    <h3>Can I cancel anytime?</h3>
-    <p>Yes! No contracts — you can stop service at any time.</p>
+    <strong>What days do you come?</strong>
+    <p>On your normal trash pickup day.</p>
   </div>
 </section>
 
 <footer>
-  <p>© 2026 BinButler — St. Louis, MO</p>
-  <p>Call (636)-231-5667</p>
+  <p>© 2026 BinButler • St. Louis, MO</p>
 </footer>
 
-<script>
-  // Collapse / Expand signup form on mobile
-  const toggleBtn = document.getElementById('toggle-form');
-  const form = document.getElementById('signupForm');
-
-  toggleBtn.addEventListener('click', () => {
-    form.classList.toggle('hidden-form');
-    form.scrollIntoView({behavior: 'smooth'});
-  });
-</script>
+<script src="Main.js"></script>
 </body>
 </html>
+
