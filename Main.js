@@ -9,6 +9,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Toggle signup form
   openFormBtn.addEventListener("click", () => {
     signupForm.classList.toggle("hidden");
+    if (signupForm.classList.contains("hidden")) {
+      openFormBtn.textContent = "Tap to Sign Up";
+    } else {
+      openFormBtn.textContent = "Close Sign Up Form";
+    }
   });
 
   // Show "other" text box
@@ -26,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     signupForm.reset();
     signupForm.classList.add("hidden");
+    openFormBtn.textContent = "Tap to Sign Up";
 
     popup.classList.remove("hidden");
   });
