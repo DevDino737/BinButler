@@ -30,6 +30,14 @@ body {
 .logo {
   font-weight: 800;
   font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  height: 40px;
+  width: auto;
 }
 
 .nav-links {
@@ -282,6 +290,10 @@ footer {
   margin: 0 auto;
 }
 
+.pricing-image {
+  display: none;
+}
+
 .pricing-image img {
   width: 100%;
   max-width: 320px;
@@ -297,17 +309,21 @@ footer {
     gap: 60px;
   }
 
+  .pricing-image {
+    display: block;
+  }
+
   .price-card {
-    max-width: 460px; /* Bigger width (was 360px) */
-    padding: 40px;    /* More padding */
+    max-width: 550px; /* Even bigger width */
+    padding: 50px;    /* More padding */
   }
 
   .price-card h2 {
-    font-size: 60px; /* Bigger text */
+    font-size: 72px; /* Bigger text */
   }
 
   .pricing-image img {
-    max-width: 400px; /* Bigger image on laptop */
+    max-width: 500px; /* Bigger image on laptop */
   }
 }
 
