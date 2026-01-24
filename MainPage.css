@@ -6,6 +6,10 @@ html {
   scroll-behavior: smooth;
 }
 
+section {
+  scroll-margin-top: 20vh;
+}
+
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -33,6 +37,8 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  text-decoration: none;
+  color: #fff;
 }
 
 .logo img {
@@ -47,6 +53,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  margin-right: 20px; /* Moves buttons 20px to the right */
 }
 
 nav {
@@ -263,12 +270,7 @@ footer {
 
 
 .price-card {
-  background: linear-gradient(180deg, #1a1a1a, #111);
-  border-radius: 20px;
   padding: 32px;
-  max-width: 360px;
-  margin: auto;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.7);
 }
 
 .price-card h2 {
@@ -285,9 +287,12 @@ footer {
   display: flex;
   flex-direction: column; /* Stacks vertically on mobile */
   align-items: center;
-  gap: 30px;
-  max-width: 1100px;
+  max-width: 360px;
   margin: 0 auto;
+  background: linear-gradient(180deg, #1a1a1a, #111);
+  border-radius: 20px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.7);
+  overflow: hidden;
 }
 
 .pricing-image {
@@ -296,9 +301,8 @@ footer {
 
 .pricing-image img {
   width: 100%;
-  max-width: 320px;
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Laptop / Desktop Specific Styles */
@@ -306,16 +310,20 @@ footer {
   .pricing-container {
     flex-direction: row; /* Side-by-side on laptop */
     justify-content: center;
-    gap: 60px;
+    max-width: 1100px;
+    align-items: stretch; /* Ensures both items are same height */
   }
 
   .pricing-image {
     display: block;
+    flex: 1;
+    max-width: 550px;
   }
 
   .price-card {
-    max-width: 550px; /* Even bigger width */
     padding: 50px;    /* More padding */
+    flex: 1;
+    width: 100%;
   }
 
   .price-card h2 {
@@ -323,7 +331,6 @@ footer {
   }
 
   .pricing-image img {
-    max-width: 500px; /* Bigger image on laptop */
   }
 }
 
