@@ -51,31 +51,33 @@
     <div class="popup-card">
       <h2>🎉 You're Signed Up!</h2>
       <p>
-      We’ve received your info.<br />
-      BinButler will contact you shortly to get started.
+        We’ve received your info.<br />
+        BinButler will contact you shortly to get started.
       </p>
       <button id="closePopup">Got it</button>
     </div>
   </div>
 
-
   <div class="hero-right signup-card fade-up">
     <h2>Sign Up Today</h2>
     <button id="openForm">Tap to Sign Up</button>
 
-        <form
-          id="signupForm"
-          class="hidden"
-          action="https://script.google.com/macros/s/AKfycbzYpFlcv6gi0G4wC7nmWIit1oOKF75fxKoT6YFmaugQIZ1D8AFC4p9aUb5j-fT0oNvUOw/exec"
-          method="POST"
-       >
-      <label>First name</label>
-      <input type="text" placeholder="First Name" required />
-      <label>Adress</label>
-      <input type="text" placeholder="Service Address" required />
+    <form
+      id="signupForm"
+      class="hidden"
+      action="https://script.google.com/macros/s/AKfycbzLTzChEnKIIMuUPglM-fd9_RjWgsdUc5qooPIkodawSuYcccjqF6WzjX96UAVulXgPFQ/exec"
+    >
+      <!-- First Name -->
+      <label>First Name</label>
+      <input type="text" name="first_name" placeholder="First Name" required />
 
+      <!-- Address -->
+      <label>Address</label>
+      <input type="text" name="address" placeholder="Service Address" required />
+
+      <!-- Bin Location -->
       <label>Bin Location</label>
-      <select id="bin_location" required>
+      <select id="bin_location" name="bin_location" required>
         <option value="">Select location</option>
         <option value="garage">Garage</option>
         <option value="side">Side Yard</option>
@@ -84,11 +86,28 @@
       </select>
 
       <div id="other-container" class="hidden">
-        <input type="text" placeholder="Please describe location" />
+        <input type="text" name="other_location" placeholder="Please describe location" />
       </div>
 
+      <!-- Pets -->
+      <label>Pets</label>
+      <select name="pets" required>
+        <option value="">Do you have pets?</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+
+      <!-- Payment Method -->
+      <label>Payment Method</label>
+      <select name="payment_method" required>
+        <option value="">Preferred Payment</option>
+        <option value="paypal">PayPal</option>
+        <option value="cash">Cash</option>
+      </select>
+
+      <!-- Contact Method -->
       <label>Preferred Contact</label>
-      <select id="contact_method" required>
+      <select id="contact_method" name="contact_method" required>
         <option value="">Choose one</option>
         <option value="email">Email</option>
         <option value="text">Text</option>
@@ -96,13 +115,21 @@
 
       <div id="email-input-container" class="hidden">
         <label>Email Address</label>
-        <input type="email" id="contact_email" placeholder="Enter your email" />
+        <input type="email" id="contact_email" name="contact_email" placeholder="Enter your email" />
       </div>
 
       <div id="phone-input-container" class="hidden">
         <label>Phone Number</label>
-        <input type="tel" id="contact_phone" placeholder="Enter your phone number" />
+        <input type="tel" id="contact_phone" name="contact_phone" placeholder="Enter your phone number" />
       </div>
+
+      <!-- Property Access -->
+      <label>Permission to Enter Property</label>
+      <select name="property_access" required>
+        <option value="">Select</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
 
       <input type="submit" value="Submit Request" />
       <p class="micro-copy">No payment required until confirmation</p>
@@ -114,8 +141,7 @@
 <section id="pricing" class="section pricing">
   <div class="pricing-container">
     <div class="pricing-image">
-      <!-- Replace src with your actual image -->
-      <img src="https://i.ibb.co/08dD9Tz/transparent-logo.png">
+      <img src="https://i.ibb.co/vxDbTzqD/Chat-GPT-Image-Jan-25-2026-12-22-11-AM.png">
     </div>
     <div class="price-card">
       <h3>Only</h3>
@@ -130,7 +156,6 @@
     </div>
   </div>
 </section>
-
 
 <!-- ABOUT -->
 <section id="about" class="section">
@@ -153,7 +178,6 @@
   </div>
 </section>
 
-
 <!-- FAQ -->
 <section id="faq" class="section">
   <h2>FAQ</h2>
@@ -167,11 +191,11 @@
   </div>
   <div class="faq-item">
     <strong>What bins do we bring to the curb?</strong>
-    <p>We bring all of your Bins "trash, yard waste and recyling"is </p>
+    <p>We bring all of your bins — trash, yard waste, and recycling.</p>
   </div>
   <div class="faq-item">
     <strong>How do I pay?</strong>
-    <p>We accept cash and PayPal, you will be infrom how to pay after you sign up via email or text</p>
+    <p>We accept cash and PayPal. You will be informed how to pay after signing up via email or text.</p>
   </div>
 </section>
 
