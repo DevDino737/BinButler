@@ -43,8 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Handle form submit
-  signupForm.addEventListener("submit", (e) => {
-    e.preventDefault();
+  signupForm.addEventListener("submit", () => {
+    popup.classList.remove("hidden");
 
     signupForm.reset();
     signupForm.classList.add("hidden");
