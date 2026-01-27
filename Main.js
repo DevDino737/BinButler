@@ -42,6 +42,9 @@ document.addEventListener("DOMContentLoaded", () => {
   signupForm.addEventListener("submit", (e) => {
     e.preventDefault(); // stop normal form submit
 
+
+  if (!popup.classList.contains("hidden")) return; // prevent double-show
+
     fetch(signupForm.action, {
       method: "POST",
       body: new FormData(signupForm),
