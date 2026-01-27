@@ -11,22 +11,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const emailInput = document.getElementById("contact_email");
   const phoneInput = document.getElementById("contact_phone");
 
-  // Toggle signup form
+  // Open form
   openFormBtn.addEventListener("click", () => {
     signupForm.classList.remove("hidden");
     openFormBtn.classList.add("hidden");
   });
 
-  // Show "other" text box
+  // Show "other" bin location
   binSelect.addEventListener("change", () => {
-    if (binSelect.value === "other") {
-      otherContainer.classList.remove("hidden");
-    } else {
-      otherContainer.classList.add("hidden");
-    }
+    otherContainer.classList.toggle("hidden", binSelect.value !== "other");
   });
 
-  // Show Email or Phone input based on selection
+  // Show email or phone input
   contactMethod.addEventListener("change", () => {
     emailContainer.classList.add("hidden");
     phoneContainer.classList.add("hidden");
@@ -42,16 +38,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Handle form submit
+  // IMPORTANT: do NOT prevent submit, do NOT reset here
   signupForm.addEventListener("submit", () => {
     popup.classList.remove("hidden");
-
-    signupForm.reset();
-    signupForm.classList.add("hidden");
-    openFormBtn.textContent = "Tap to Sign Up";
-    openFormBtn.classList.remove("hidden");
-
-    popup.classList.remove("hidden");
+    // let the browser submit naturally
   });
 
   // Close popup
@@ -59,3 +49,5 @@ document.addEventListener("DOMContentLoaded", () => {
     popup.classList.add("hidden");
   });
 });
+
+
