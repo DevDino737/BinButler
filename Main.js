@@ -38,10 +38,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // IMPORTANT: do NOT prevent submit, do NOT reset here
-  signupForm.addEventListener("submit", () => {
-    popup.classList.remove("hidden");
-    // let the browser submit naturally
+  // AJAX submit (NO redirect, NO extra success page)
+  signupForm.addEventListener("submit", (e) => {
+    e.preventDefault(); // stop normal form submit
+
+    fetch(signupForm.action, {
+      method: "POST",
+      body: new FormData(signupForm),
+    })
+      .then(() => {
+        popup.classList.remove("hidden");
+
+        signupForm.reset();
+        signupForm.classList.add("hidden");
+        openFormBtn.textContent = "Tap to Sign Up";
+        openFormBtn.classList.remove("hidden");
+      })
+      .catch(() => {
+        alert("Something went wrong. Please try again.");
+      });
   });
 
   // Close popup
