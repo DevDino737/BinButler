@@ -313,6 +313,27 @@ footer {
     font-size: 72px; /* Bigger text */
   }
 
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 20px auto 0;
+  text-align: left;
+  display: inline-block;
+}
+
+.pricing-features li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 8px;
+}
+
+.pricing-features li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: #22c55e;
+}
+
 .rules-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
