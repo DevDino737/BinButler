@@ -112,6 +112,60 @@ nav {
   text-align: center;
 }
 
+.hero-left h1 {
+  font-size: clamp(2.4rem, 5vw, 4.3rem);
+  line-height: 0.95;
+  margin-bottom: 16px;
+}
+
+.hero-left p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.signup-banner {
+  margin: 24px auto 28px;
+  padding: 18px 20px;
+  max-width: 360px;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.05)),
+    rgba(8, 25, 12, 0.45);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.22);
+  backdrop-filter: blur(8px);
+}
+
+.signup-banner-copy {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.signup-banner-label {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.82);
+}
+
+#signupCount {
+  font-size: clamp(2rem, 7vw, 3.2rem);
+  line-height: 1;
+  color: #f6ffef;
+  text-shadow: 0 6px 20px rgba(0,0,0,0.28);
+}
+
+.signup-banner p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.86);
+}
+
 .features {
   list-style: none;
   padding: 0;
@@ -216,6 +270,14 @@ footer {
 .micro-copy {
   font-size: 12px;
   color: #aaa;
+}
+
+@media (max-width: 768px) {
+  .signup-banner-copy {
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
 }
 
 /* POPUP */
@@ -407,5 +469,4 @@ textarea:focus {
     flex: 1;
   }
 }
-
 
