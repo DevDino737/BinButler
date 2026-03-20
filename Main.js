@@ -10,9 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const phoneContainer = document.getElementById("phone-input-container");
   const emailInput = document.getElementById("contact_email");
   const phoneInput = document.getElementById("contact_phone");
+  const submitButton = signupForm.querySelector('input[type="submit"]');
   const signupCount = document.getElementById("signupCount");
   const signupBannerMessage = document.getElementById("signupBannerMessage");
   const foundingLimit = Number(signupCount?.dataset.limit || 10);
+  const defaultSubmitText = submitButton?.value || "Submit Request";
 
   // Animate counter
   const animateSignupCount = (targetCount) => {
@@ -102,6 +104,12 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     if (!popup.classList.contains("hidden")) return; // prevent double-show
 
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.value = "Submitting...";
+      submitButton.classList.add("is-loading");
+    }
+
     // Optimistically increment the counter
     const currentCount = Number(signupCount.textContent) || 0;
     const optimisticCount = currentCount + 1;
@@ -129,6 +137,12 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch {
       alert("Something went wrong. Please try again.");
       setSignupCount(currentCount); // revert if POST fails
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.value = defaultSubmitText;
+        submitButton.classList.remove("is-loading");
+      }
     }
   });
 
