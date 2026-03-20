@@ -12,185 +12,127 @@ document.addEventListener("DOMContentLoaded", () => {
   const phoneInput = document.getElementById("contact_phone");
   const signupCount = document.getElementById("signupCount");
   const signupBannerMessage = document.getElementById("signupBannerMessage");
-
-  const initialSignupCount = Number(
-    signupCount?.dataset.count || signupCount?.textContent || 0
-  );
   const foundingLimit = Number(signupCount?.dataset.limit || 10);
 
-  // ------------------------
-  // COUNT ANIMATION
-  // ------------------------
+  // Animate counter
   const animateSignupCount = (targetCount) => {
     if (!signupCount) return;
-
     const startCount = Number(signupCount.textContent) || 0;
-    const range = targetCount - startCount;
-    const duration = 800;
+    const countRange = targetCount - startCount;
+    const duration = 900;
     const startTime = performance.now();
 
-    const update = (time) => {
-      const progress = Math.min((time - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
+    const updateCount = (currentTime) => {
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      const easedProgress = 1 - Math.pow(1 - progress, 3);
+      signupCount.textContent = Math.round(startCount + countRange * easedProgress);
 
-      signupCount.textContent = Math.round(startCount + range * eased);
-
-      if (progress < 1) requestAnimationFrame(update);
+      if (progress < 1) requestAnimationFrame(updateCount);
     };
 
-    requestAnimationFrame(update);
+    requestAnimationFrame(updateCount);
   };
 
-  // ------------------------
-  // BANNER TEXT
-  // ------------------------
   const updateBannerMessage = (count) => {
     if (!signupBannerMessage) return;
-
     const spotsLeft = Math.max(foundingLimit - count, 0);
-
     if (spotsLeft > 0) {
-      signupBannerMessage.textContent =
-        `${count} signed up so far. Only ${spotsLeft} of the first ${foundingLimit} lifetime 30% off spots left.`;
+      signupBannerMessage.textContent = `${count} signed up so far. Only ${spotsLeft} of the first ${foundingLimit} lifetime 30% off spots left.`;
     } else {
-      signupBannerMessage.textContent =
-        `${count} signed up so far. The first ${foundingLimit} spots have been claimed.`;
+      signupBannerMessage.textContent = `${count} signed up so far. The first ${foundingLimit} lifetime 30% off spots have been claimed.`;
     }
   };
 
   const setSignupCount = (count) => {
-    const safe = Math.max(Number(count) || 0, 0);
-    animateSignupCount(safe);
-    updateBannerMessage(safe);
+    const safeCount = Math.max(Number(count) || 0, 0);
+    animateSignupCount(safeCount);
+    updateBannerMessage(safeCount);
   };
 
-  // ------------------------
-  // PARSE COUNT RESPONSE
-  // ------------------------
-  const parseSignupCount = (data) => {
+  const parseSignupCount = (payload) => {
     try {
-      if (typeof data === "number") return data;
-
-      if (typeof data === "string") {
-        const parsed = JSON.parse(data);
-        return Number(parsed.count);
-      }
-
-      if (typeof data === "object") {
-        return Number(data.count);
-      }
+      if (typeof payload === "string") payload = JSON.parse(payload);
+      return Number(payload.count ?? payload.signupCount ?? payload.total) || 0;
     } catch {
-      return null;
+      return 0;
     }
-
-    return null;
   };
 
-  // ------------------------
-  // FETCH COUNT (FIXED)
-  // ------------------------
   const fetchSignupCount = async () => {
-    const res = await fetch(`${signupForm.action}?mode=count`);
-
-    if (!res.ok) throw new Error("Failed to fetch");
-
-    const text = await res.text();
-    const count = parseSignupCount(text);
-
-    if (!Number.isFinite(count)) throw new Error("Invalid count");
-
-    return count;
+    const response = await fetch(`${signupForm.action}?mode=count`, { method: "GET" });
+    if (!response.ok) throw new Error("Unable to fetch signup count");
+    const text = await response.text();
+    return parseSignupCount(text);
   };
 
-  // ------------------------
-  // INITIAL LOAD
-  // ------------------------
-  setSignupCount(initialSignupCount);
-
+  // Initialize
   fetchSignupCount()
     .then((count) => setSignupCount(count))
-    .catch(() => updateBannerMessage(initialSignupCount));
+    .catch(() => setSignupCount(0));
 
-  // ------------------------
-  // OPEN FORM
-  // ------------------------
+  // Open form
   openFormBtn.addEventListener("click", () => {
     signupForm.classList.remove("hidden");
     openFormBtn.classList.add("hidden");
   });
 
-  // ------------------------
-  // BIN LOCATION "OTHER"
-  // ------------------------
+  // Show "other" bin location
   binSelect.addEventListener("change", () => {
     otherContainer.classList.toggle("hidden", binSelect.value !== "other");
   });
 
-  // ------------------------
-  // CONTACT METHOD SWITCH
-  // ------------------------
+  // Show email or phone input
   contactMethod.addEventListener("change", () => {
     emailContainer.classList.add("hidden");
     phoneContainer.classList.add("hidden");
-
     emailInput.required = false;
     phoneInput.required = false;
 
     if (contactMethod.value === "email") {
       emailContainer.classList.remove("hidden");
       emailInput.required = true;
-    }
-
-    if (contactMethod.value === "text") {
+    } else if (contactMethod.value === "text") {
       phoneContainer.classList.remove("hidden");
       phoneInput.required = true;
     }
   });
 
-  // ------------------------
-  // FORM SUBMIT (FIXED)
-  // ------------------------
-  signupForm.addEventListener("submit", (e) => {
+  // AJAX submit
+  signupForm.addEventListener("submit", async (e) => {
     e.preventDefault();
+    if (!popup.classList.contains("hidden")) return; // prevent double-show
 
-    fetch(signupForm.action, {
-      method: "POST",
-      body: new FormData(signupForm),
-    })
-      .then(async (res) => {
-        const text = await res.text();
+    // Optimistically increment the counter
+    const currentCount = Number(signupCount.textContent) || 0;
+    const optimisticCount = currentCount + 1;
+    setSignupCount(optimisticCount);
 
-        if (text !== "Success") {
-          throw new Error("Server error");
-        }
+    try {
+      await fetch(signupForm.action, { method: "POST", body: new FormData(signupForm) });
 
-        // Show success popup
-        popup.classList.remove("hidden");
+      // Show popup
+      popup.classList.remove("hidden");
 
-        // Update count
-        try {
-          const count = await fetchSignupCount();
-          setSignupCount(count);
-        } catch {
-          setSignupCount(
-            (Number(signupCount?.textContent) || initialSignupCount) + 1
-          );
-        }
+      // Fetch real count to correct in case anything went wrong
+      try {
+        const liveCount = await fetchSignupCount();
+        setSignupCount(liveCount);
+      } catch {
+        // If fetch fails, keep optimistic count
+        setSignupCount(optimisticCount);
+      }
 
-        // Reset form
-        signupForm.reset();
-        signupForm.classList.add("hidden");
-        openFormBtn.textContent = "Tap to Sign Up";
-        openFormBtn.classList.remove("hidden");
-      })
-      .catch(() => {
-        alert("Something went wrong. Please try again.");
-      });
+      signupForm.reset();
+      signupForm.classList.add("hidden");
+      openFormBtn.textContent = "Tap to Sign Up";
+      openFormBtn.classList.remove("hidden");
+    } catch {
+      alert("Something went wrong. Please try again.");
+      setSignupCount(currentCount); // revert if POST fails
+    }
   });
 
-  // ------------------------
-  // CLOSE POPUP
-  // ------------------------
+  // Close popup
   closePopup.addEventListener("click", () => {
     popup.classList.add("hidden");
   });
