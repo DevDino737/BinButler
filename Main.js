@@ -12,34 +12,38 @@ document.addEventListener("DOMContentLoaded", () => {
   const phoneInput = document.getElementById("contact_phone");
   const signupCount = document.getElementById("signupCount");
   const signupBannerMessage = document.getElementById("signupBannerMessage");
+
   const initialSignupCount = Number(
     signupCount?.dataset.count || signupCount?.textContent || 0
   );
   const foundingLimit = Number(signupCount?.dataset.limit || 10);
 
+  // ------------------------
+  // COUNT ANIMATION
+  // ------------------------
   const animateSignupCount = (targetCount) => {
     if (!signupCount) return;
 
     const startCount = Number(signupCount.textContent) || 0;
-    const countRange = targetCount - startCount;
-    const duration = 900;
+    const range = targetCount - startCount;
+    const duration = 800;
     const startTime = performance.now();
 
-    const updateCount = (currentTime) => {
-      const progress = Math.min((currentTime - startTime) / duration, 1);
-      const easedProgress = 1 - Math.pow(1 - progress, 3);
-      signupCount.textContent = Math.round(
-        startCount + countRange * easedProgress
-      );
+    const update = (time) => {
+      const progress = Math.min((time - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
 
-      if (progress < 1) {
-        requestAnimationFrame(updateCount);
-      }
+      signupCount.textContent = Math.round(startCount + range * eased);
+
+      if (progress < 1) requestAnimationFrame(update);
     };
 
-    requestAnimationFrame(updateCount);
+    requestAnimationFrame(update);
   };
 
+  // ------------------------
+  // BANNER TEXT
+  // ------------------------
   const updateBannerMessage = (count) => {
     if (!signupBannerMessage) return;
 
@@ -48,118 +52,132 @@ document.addEventListener("DOMContentLoaded", () => {
     if (spotsLeft > 0) {
       signupBannerMessage.textContent =
         `${count} signed up so far. Only ${spotsLeft} of the first ${foundingLimit} lifetime 30% off spots left.`;
-      return;
+    } else {
+      signupBannerMessage.textContent =
+        `${count} signed up so far. The first ${foundingLimit} spots have been claimed.`;
     }
-
-    signupBannerMessage.textContent =
-      `${count} signed up so far. The first ${foundingLimit} lifetime 30% off spots have been claimed.`;
   };
 
   const setSignupCount = (count) => {
-    const safeCount = Math.max(Number(count) || 0, 0);
-    animateSignupCount(safeCount);
-    updateBannerMessage(safeCount);
+    const safe = Math.max(Number(count) || 0, 0);
+    animateSignupCount(safe);
+    updateBannerMessage(safe);
   };
 
-  const parseSignupCount = (payload) => {
-    if (typeof payload === "number") return payload;
+  // ------------------------
+  // PARSE COUNT RESPONSE
+  // ------------------------
+  const parseSignupCount = (data) => {
+    try {
+      if (typeof data === "number") return data;
 
-    if (typeof payload === "string") {
-      const parsedTextNumber = Number(payload.trim());
-      if (Number.isFinite(parsedTextNumber)) return parsedTextNumber;
-
-      try {
-        return parseSignupCount(JSON.parse(payload));
-      } catch {
-        return null;
+      if (typeof data === "string") {
+        const parsed = JSON.parse(data);
+        return Number(parsed.count);
       }
-    }
 
-    if (payload && typeof payload === "object") {
-      const possibleCount = payload.count ?? payload.signupCount ?? payload.total;
-      const parsedObjectNumber = Number(possibleCount);
-      return Number.isFinite(parsedObjectNumber) ? parsedObjectNumber : null;
+      if (typeof data === "object") {
+        return Number(data.count);
+      }
+    } catch {
+      return null;
     }
 
     return null;
   };
 
+  // ------------------------
+  // FETCH COUNT (FIXED)
+  // ------------------------
   const fetchSignupCount = async () => {
-    const response = await fetch(`${signupForm.action}?mode=count`, {
-      method: "GET",
-    });
+    const res = await fetch(`${signupForm.action}?mode=count`);
 
-    if (!response.ok) {
-      throw new Error("Unable to load signup count");
-    }
+    if (!res.ok) throw new Error("Failed to fetch");
 
-    const responseText = await response.text();
-    const parsedCount = parseSignupCount(responseText);
+    const text = await res.text();
+    const count = parseSignupCount(text);
 
-    if (!Number.isFinite(parsedCount)) {
-      throw new Error("Invalid signup count response");
-    }
+    if (!Number.isFinite(count)) throw new Error("Invalid count");
 
-    return parsedCount;
+    return count;
   };
 
+  // ------------------------
+  // INITIAL LOAD
+  // ------------------------
   setSignupCount(initialSignupCount);
 
   fetchSignupCount()
-    .then((liveCount) => {
-      setSignupCount(liveCount);
-    })
-    .catch(() => {
-      updateBannerMessage(initialSignupCount);
-    });
+    .then((count) => setSignupCount(count))
+    .catch(() => updateBannerMessage(initialSignupCount));
 
-  // Open form
+  // ------------------------
+  // OPEN FORM
+  // ------------------------
   openFormBtn.addEventListener("click", () => {
     signupForm.classList.remove("hidden");
     openFormBtn.classList.add("hidden");
   });
 
-  // Show "other" bin location
+  // ------------------------
+  // BIN LOCATION "OTHER"
+  // ------------------------
   binSelect.addEventListener("change", () => {
     otherContainer.classList.toggle("hidden", binSelect.value !== "other");
   });
 
-  // Show email or phone input
+  // ------------------------
+  // CONTACT METHOD SWITCH
+  // ------------------------
   contactMethod.addEventListener("change", () => {
     emailContainer.classList.add("hidden");
     phoneContainer.classList.add("hidden");
+
     emailInput.required = false;
     phoneInput.required = false;
 
     if (contactMethod.value === "email") {
       emailContainer.classList.remove("hidden");
       emailInput.required = true;
-    } else if (contactMethod.value === "text") {
+    }
+
+    if (contactMethod.value === "text") {
       phoneContainer.classList.remove("hidden");
       phoneInput.required = true;
     }
   });
 
-  // AJAX submit (NO redirect, NO extra success page)
+  // ------------------------
+  // FORM SUBMIT (FIXED)
+  // ------------------------
   signupForm.addEventListener("submit", (e) => {
-    e.preventDefault(); // stop normal form submit
-
-
-  if (!popup.classList.contains("hidden")) return; // prevent double-show
+    e.preventDefault();
 
     fetch(signupForm.action, {
       method: "POST",
       body: new FormData(signupForm),
     })
-      .then(async () => {
-        popup.classList.remove("hidden");
-        try {
-          const liveCount = await fetchSignupCount();
-          setSignupCount(liveCount);
-        } catch {
-          setSignupCount((Number(signupCount?.textContent) || initialSignupCount) + 1);
+      .then(async (res) => {
+        const text = await res.text();
+
+        if (text !== "Success") {
+          throw new Error("Server error");
         }
 
+        // Show success popup
+        popup.classList.remove("hidden");
+
+        // Update count
+        try {
+          const count = await fetchSignupCount();
+          setSignupCount(count);
+        } catch {
+          setSignupCount(
+            (Number(signupCount?.textContent) || initialSignupCount) + 1
+          );
+        }
+
+        // Reset form
         signupForm.reset();
         signupForm.classList.add("hidden");
         openFormBtn.textContent = "Tap to Sign Up";
@@ -170,7 +188,9 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   });
 
-  // Close popup
+  // ------------------------
+  // CLOSE POPUP
+  // ------------------------
   closePopup.addEventListener("click", () => {
     popup.classList.add("hidden");
   });
