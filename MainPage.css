@@ -415,6 +415,22 @@ footer {
   color: #22c55e;
 }
 
+.price-eyebrow {
+  color: #ffffff;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  margin-bottom: -10px;
+}
+
+.price-desc {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 400;
+}
+
 .rules-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

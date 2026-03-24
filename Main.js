@@ -39,9 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!signupBannerMessage) return;
     const spotsLeft = Math.max(foundingLimit - count, 0);
     if (spotsLeft > 0) {
-      signupBannerMessage.textContent = `${count} signed up so far. Only ${spotsLeft} of the first ${foundingLimit} lifetime 30% off spots left.`;
+      signupBannerMessage.textContent = `${count} signed up so far. Only ${spotsLeft} of the first ${foundingLimit} lifetime 20% off spots left.`;
     } else {
-      signupBannerMessage.textContent = `${count} signed up so far. The first ${foundingLimit} lifetime 30% off spots have been claimed.`;
+      signupBannerMessage.textContent = `${count} signed up so far. The first ${foundingLimit} lifetime 20% off spots have been claimed.`;
     }
   };
 
