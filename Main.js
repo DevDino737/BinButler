@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const signupBannerMessage = document.getElementById("signupBannerMessage");
   const foundingLimit = Number(signupCount?.dataset.limit || 10);
   const defaultSubmitText = submitButton?.value || "Submit Request";
+  const signupCountStorageKey = "binbutler-signup-count";
 
   // Animate counter
   const animateSignupCount = (targetCount) => {
@@ -47,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const setSignupCount = (count) => {
     const safeCount = Math.max(Number(count) || 0, 0);
+    localStorage.setItem(signupCountStorageKey, String(safeCount));
     animateSignupCount(safeCount);
     updateBannerMessage(safeCount);
   };
@@ -68,9 +70,19 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Initialize
+  const cachedSignupCount = Number(localStorage.getItem(signupCountStorageKey));
+  if (Number.isFinite(cachedSignupCount) && cachedSignupCount >= 0) {
+    signupCount.textContent = String(cachedSignupCount);
+    updateBannerMessage(cachedSignupCount);
+  }
+
   fetchSignupCount()
     .then((count) => setSignupCount(count))
-    .catch(() => setSignupCount(0));
+    .catch(() => {
+      if (!(Number.isFinite(cachedSignupCount) && cachedSignupCount >= 0)) {
+        setSignupCount(0);
+      }
+    });
 
   // Open form
   openFormBtn.addEventListener("click", () => {
