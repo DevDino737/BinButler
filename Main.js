@@ -11,78 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const emailInput = document.getElementById("contact_email");
   const phoneInput = document.getElementById("contact_phone");
   const submitButton = signupForm.querySelector('input[type="submit"]');
-  const signupCount = document.getElementById("signupCount");
-  const signupBannerMessage = document.getElementById("signupBannerMessage");
-  const foundingLimit = Number(signupCount?.dataset.limit || 10);
   const defaultSubmitText = submitButton?.value || "Submit Request";
-  const signupCountStorageKey = "binbutler-signup-count";
-
-  // Animate counter
-  const animateSignupCount = (targetCount) => {
-    if (!signupCount) return;
-    const startCount = Number(signupCount.textContent) || 0;
-    const countRange = targetCount - startCount;
-    const duration = 900;
-    const startTime = performance.now();
-
-    const updateCount = (currentTime) => {
-      const progress = Math.min((currentTime - startTime) / duration, 1);
-      const easedProgress = 1 - Math.pow(1 - progress, 3);
-      signupCount.textContent = Math.round(startCount + countRange * easedProgress);
-
-      if (progress < 1) requestAnimationFrame(updateCount);
-    };
-
-    requestAnimationFrame(updateCount);
-  };
-
-  const updateBannerMessage = (count) => {
-    if (!signupBannerMessage) return;
-    const spotsLeft = Math.max(foundingLimit - count, 0);
-    if (spotsLeft > 0) {
-      signupBannerMessage.textContent = `${count} signed up so far. Only ${spotsLeft} of the first ${foundingLimit} lifetime 20% off spots left.`;
-    } else {
-      signupBannerMessage.textContent = `${count} signed up so far. The first ${foundingLimit} lifetime 20% off spots have been claimed.`;
-    }
-  };
-
-  const setSignupCount = (count) => {
-    const safeCount = Math.max(Number(count) || 0, 0);
-    localStorage.setItem(signupCountStorageKey, String(safeCount));
-    animateSignupCount(safeCount);
-    updateBannerMessage(safeCount);
-  };
-
-  const parseSignupCount = (payload) => {
-    try {
-      if (typeof payload === "string") payload = JSON.parse(payload);
-      return Number(payload.count ?? payload.signupCount ?? payload.total) || 0;
-    } catch {
-      return 0;
-    }
-  };
-
-  const fetchSignupCount = async () => {
-    const response = await fetch(`${signupForm.action}?mode=count`, { method: "GET" });
-    if (!response.ok) throw new Error("Unable to fetch signup count");
-    const text = await response.text();
-    return parseSignupCount(text);
-  };
-
-  // Initialize
-  const cachedSignupCount = Number(localStorage.getItem(signupCountStorageKey));
-  if (Number.isFinite(cachedSignupCount) && cachedSignupCount >= 0) {
-    signupCount.textContent = String(cachedSignupCount);
-    updateBannerMessage(cachedSignupCount);
-  }
-
-  fetchSignupCount()
-    .then((count) => setSignupCount(count))
-    .catch(() => {
-      if (!(Number.isFinite(cachedSignupCount) && cachedSignupCount >= 0)) {
-        setSignupCount(0);
-      }
-    });
 
   // Open form
   openFormBtn.addEventListener("click", () => {
@@ -122,25 +51,11 @@ document.addEventListener("DOMContentLoaded", () => {
       submitButton.classList.add("is-loading");
     }
 
-    // Optimistically increment the counter
-    const currentCount = Number(signupCount.textContent) || 0;
-    const optimisticCount = currentCount + 1;
-    setSignupCount(optimisticCount);
-
     try {
       await fetch(signupForm.action, { method: "POST", body: new FormData(signupForm) });
 
       // Show popup
       popup.classList.remove("hidden");
-
-      // Fetch real count to correct in case anything went wrong
-      try {
-        const liveCount = await fetchSignupCount();
-        setSignupCount(liveCount);
-      } catch {
-        // If fetch fails, keep optimistic count
-        setSignupCount(optimisticCount);
-      }
 
       signupForm.reset();
       signupForm.classList.add("hidden");
@@ -148,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
       openFormBtn.classList.remove("hidden");
     } catch {
       alert("Something went wrong. Please try again.");
-      setSignupCount(currentCount); // revert if POST fails
     } finally {
       if (submitButton) {
         submitButton.disabled = false;
