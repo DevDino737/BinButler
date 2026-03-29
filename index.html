@@ -68,7 +68,7 @@
     <form
       id="signupForm"
       class="hidden"
-      action="https://script.google.com/macros/s/AKfycbxGFJcpliFXWT6if6-eoY-EO-hvr6GvoxQuG7hcX83Fc2Zk9uuH0NCBc15afmmxltsKfw/exec"
+      action="https://script.google.com/macros/s/AKfycbxsR1OXLdTX06RcFgDMrmrUqx4HVJrPCNxSChpWfTWOJWDcOVBoFo5nzlcaeFAZEqAmhg/exec"
       method="post"
       >
       <!-- First Name -->
@@ -78,6 +78,15 @@
       <!-- Address -->
       <label>Address</label>
       <input type="text" name="address" placeholder="Service Address" required />
+
+      <!-- Plan Selection -->
+      <label>Which Plan Do You Want?</label>
+      <select name="selected_plan" required>
+        <option value="">Choose a plan</option>
+        <option value="main_plan">$25/month - Main Plan</option>
+        <option value="travel_plan">$15/month - Worry Free Travel Plan</option>
+        <option value="on_demand">$10 - BinButler On-Demand</option>
+      </select>
 
       <!-- Bin Location -->
       <label>Bin Location</label>

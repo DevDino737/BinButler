@@ -652,15 +652,37 @@ textarea:focus {
 
 @media (max-width: 768px) {
   .pricing {
-    padding-top: 56px;
+    padding: 56px 20px 70px;
   }
 
   .pricing-grid {
-    gap: 18px;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 540px;
+  }
+
+  .pricing-header {
+    margin-bottom: 28px;
+  }
+
+  .pricing-option {
+    border-radius: 20px;
+  }
+
+  .pricing-option-image {
+    aspect-ratio: 16 / 9;
   }
 
   .pricing-option-body {
-    padding: 20px 18px 22px;
+    padding: 22px 20px 24px;
+  }
+
+  .pricing-features {
+    margin-top: 16px;
+  }
+
+  .pricing-features li {
+    margin-bottom: 8px;
   }
 
   .about-shell {
@@ -676,5 +698,25 @@ textarea:focus {
 
   .about-content h2 {
     max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .pricing {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .pricing-header h2 {
+    font-size: clamp(1.8rem, 8vw, 2.4rem);
+  }
+
+  .pricing-option-body {
+    padding: 20px 18px 22px;
+  }
+
+  .price-desc,
+  .pricing-features li {
+    font-size: 0.96rem;
   }
 }
