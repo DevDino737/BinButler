@@ -665,10 +665,15 @@ footer {
 
   .pricing-grid {
     display: grid;
+    grid-template-columns: none;
+    grid-template-rows: auto;
     grid-auto-flow: column;
     grid-auto-columns: minmax(82vw, 82vw);
     gap: 14px;
+    width: 100%;
+    max-width: none;
     overflow-x: auto;
+    overflow-y: hidden;
     margin: 0 -16px;
     padding: 8px 16px 14px;
     scroll-snap-type: x mandatory;
@@ -681,13 +686,13 @@ footer {
   }
 
   .pricing-option {
-    min-height: 100%;
+    align-self: start;
     cursor: pointer;
     scroll-snap-align: start;
   }
 
   .pricing-option-body {
-    padding: 22px 20px 24px;
+    padding: 22px 20px 18px;
   }
 
   .pricing-option h3 {
