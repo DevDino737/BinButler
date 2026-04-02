@@ -63,89 +63,111 @@
 
   <div class="hero-right signup-card fade-up">
     <h2>Sign Up Today</h2>
-    <button id="openForm">Tap to Sign Up</button>
+    <button id="openForm" type="button">Tap to Sign Up</button>
+  </div>
 
-    <form
-      id="signupForm"
-      class="hidden"
-      action="https://script.google.com/macros/s/AKfycbxsR1OXLdTX06RcFgDMrmrUqx4HVJrPCNxSChpWfTWOJWDcOVBoFo5nzlcaeFAZEqAmhg/exec"
-      method="post"
+  <div id="signupModal" class="signup-modal hidden" aria-hidden="true">
+    <div class="signup-modal-backdrop" data-close-form="true"></div>
+    <div class="signup-modal-card" role="dialog" aria-modal="true" aria-labelledby="signupModalTitle">
+      <button id="closeForm" class="signup-modal-close" type="button" aria-label="Close sign up form">×</button>
+      <div class="signup-modal-header">
+        <p class="signup-modal-eyebrow">Founding Member Sign Up</p>
+        <h2 id="signupModalTitle">Reserve your spot with BinButler</h2>
+      </div>
+
+      <form
+        id="signupForm"
+        class="hidden"
+        action="https://script.google.com/macros/s/AKfycbxsR1OXLdTX06RcFgDMrmrUqx4HVJrPCNxSChpWfTWOJWDcOVBoFo5nzlcaeFAZEqAmhg/exec"
+        method="post"
       >
-      <!-- First Name -->
-      <label>First Name</label>
-      <input type="text" name="first_name" placeholder="First Name" required />
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="first_name">First Name</label>
+            <input id="first_name" type="text" name="first_name" placeholder="First Name" required />
+          </div>
 
-      <!-- Address -->
-      <label>Address</label>
-      <input type="text" name="address" placeholder="Service Address" required />
+          <div class="form-field">
+            <label for="address">Address</label>
+            <input id="address" type="text" name="address" placeholder="Service Address" required />
+          </div>
 
-      <!-- Plan Selection -->
-      <label>Which Plan Do You Want?</label>
-      <select name="selected_plan" required>
-        <option value="">Choose a plan</option>
-        <option value="main_plan">$25/month - Main Plan</option>
-        <option value="travel_plan">$15/month - Worry Free Travel Plan</option>
-        <option value="on_demand">$10 - BinButler On-Demand</option>
-      </select>
+          <div class="form-field">
+            <label for="selected_plan">Which Plan Do You Want?</label>
+            <select id="selected_plan" name="selected_plan" required>
+              <option value="">Choose a plan</option>
+              <option value="main_plan">$25/month - Main Plan</option>
+              <option value="travel_plan">$15/month - Worry Free Travel Plan</option>
+              <option value="on_demand">$10 - BinButler On-Demand</option>
+            </select>
+          </div>
 
-      <!-- Bin Location -->
-      <label>Bin Location</label>
-      <select id="bin_location" name="bin_location" required>
-        <option value="">Select location</option>
-        <option value="garage">Garage</option>
-        <option value="side">Side Yard</option>
-        <option value="back">Backyard</option>
-        <option value="other">Other</option>
-      </select>
+          <div class="form-field">
+            <label for="bin_location">Bin Location</label>
+            <select id="bin_location" name="bin_location" required>
+              <option value="">Select location</option>
+              <option value="garage">Garage</option>
+              <option value="side">Side Yard</option>
+              <option value="back">Backyard</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
 
-      <div id="other-container" class="hidden">
-        <input type="text" name="other_location" placeholder="Please describe location" />
-      </div>
+          <div id="other-container" class="form-field form-field-wide hidden">
+            <label for="other_location">Other Bin Location</label>
+            <input id="other_location" type="text" name="other_location" placeholder="Please describe location" />
+          </div>
 
-      <!-- Pets -->
-      <label>Pets</label>
-      <select name="pets" required>
-        <option value="">Do you have pets?</option>
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
-      </select>
+          <div class="form-field">
+            <label for="pets">Pets</label>
+            <select id="pets" name="pets" required>
+              <option value="">Do you have pets?</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
 
-      <!-- Payment Method -->
-      <label>Payment Method</label>
-      <select name="payment_method" required>
-        <option value="">Preferred Payment</option>
-        <option value="paypal">PayPal</option>
-        <option value="cash">Cash</option>
-      </select>
+          <div class="form-field">
+            <label for="payment_method">Payment Method</label>
+            <select id="payment_method" name="payment_method" required>
+              <option value="">Preferred Payment</option>
+              <option value="paypal">PayPal</option>
+              <option value="cash">Cash</option>
+            </select>
+          </div>
 
-      <!-- Contact Method -->
-      <label>Preferred Contact</label>
-      <select id="contact_method" name="contact_method" required>
-        <option value="">Choose one</option>
-        <option value="email">Email</option>
-        <option value="text">Text</option>
-      </select>
+          <div class="form-field">
+            <label for="contact_method">Preferred Contact</label>
+            <select id="contact_method" name="contact_method" required>
+              <option value="">Choose one</option>
+              <option value="email">Email</option>
+              <option value="text">Text</option>
+            </select>
+          </div>
 
-      <div id="email-input-container" class="hidden">
-        <label>Email Address</label>
-        <input type="email" id="contact_email" name="contact_email" placeholder="Enter your email" />
-      </div>
+          <div id="email-input-container" class="form-field hidden">
+            <label for="contact_email">Email Address</label>
+            <input type="email" id="contact_email" name="contact_email" placeholder="Enter your email" />
+          </div>
 
-      <div id="phone-input-container" class="hidden">
-        <label>Phone Number</label>
-        <input type="tel" id="contact_phone" name="contact_phone" placeholder="Enter your phone number" />
-      </div>
+          <div id="phone-input-container" class="form-field hidden">
+            <label for="contact_phone">Phone Number</label>
+            <input type="tel" id="contact_phone" name="contact_phone" placeholder="Enter your phone number" />
+          </div>
 
-      <!-- Property Access -->
-      <label>Permission to Enter Property</label>
-      <select name="property_access" required>
-        <option value="">Select</option>
-        <option value="yes">Yes</option>
-      </select>
+          <div class="form-field form-field-wide">
+            <label for="property_access">Permission to Enter Property</label>
+            <select id="property_access" name="property_access" required>
+              <option value="">Select</option>
+              <option value="yes">Yes</option>
+            </select>
+          </div>
+        </div>
 
-      <input type="submit" value="Submit Request" />
-      <p class="micro-copy">No payment required until confirmation</p>
-    </form>
+        <input type="submit" value="Submit Request" />
+        <p class="micro-copy">No payment required until confirmation</p>
+      </form>
+    </div>
   </div>
 </section>
 
@@ -220,7 +242,7 @@
       <p class="about-eyebrow">About BinButler</p>
       <h2>Simple local service, built with care.</h2>
       <p class="about-copy">
-      Hi! I’m a 15-year-old from St. Louis who started BinButler to make trash day easier for neighbors, and as a Christian company, our faith shapes how we work—the way we treat people, how we communicate, and the high standards we hold ourselves to every week! We are so grateful for every neighbor who helps make BinButler what it is today.
+      Hi! I’m Wyatt, a 15-year-old from St. Louis who started BinButler to make trash day easier for neighbors, and as a Christian company, our faith shapes how we work—the way we treat people, how we communicate, and the high standards we hold ourselves to every week! We are so grateful for every neighbor who helps make BinButler what it is today.
       </p>
     </div>
   </div>

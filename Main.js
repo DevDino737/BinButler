@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const openFormBtn = document.getElementById("openForm");
+  const signupModal = document.getElementById("signupModal");
+  const closeFormBtn = document.getElementById("closeForm");
   const signupForm = document.getElementById("signupForm");
   const binSelect = document.getElementById("bin_location");
   const otherContainer = document.getElementById("other-container");
@@ -12,11 +14,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const phoneInput = document.getElementById("contact_phone");
   const submitButton = signupForm.querySelector('input[type="submit"]');
   const defaultSubmitText = submitButton?.value || "Submit Request";
+  const setModalState = (isOpen) => {
+    signupModal.classList.toggle("hidden", !isOpen);
+    signupModal.setAttribute("aria-hidden", String(!isOpen));
+    signupForm.classList.toggle("hidden", !isOpen);
+    document.body.style.overflow = isOpen ? "hidden" : "";
+  };
 
   // Open form
   openFormBtn.addEventListener("click", () => {
-    signupForm.classList.remove("hidden");
-    openFormBtn.classList.add("hidden");
+    setModalState(true);
+  });
+
+  closeFormBtn.addEventListener("click", () => {
+    setModalState(false);
+  });
+
+  signupModal.addEventListener("click", (event) => {
+    if (event.target instanceof HTMLElement && event.target.dataset.closeForm === "true") {
+      setModalState(false);
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !signupModal.classList.contains("hidden")) {
+      setModalState(false);
+    }
   });
 
   // Show "other" bin location
@@ -58,9 +81,10 @@ document.addEventListener("DOMContentLoaded", () => {
       popup.classList.remove("hidden");
 
       signupForm.reset();
-      signupForm.classList.add("hidden");
-      openFormBtn.textContent = "Tap to Sign Up";
-      openFormBtn.classList.remove("hidden");
+      otherContainer.classList.add("hidden");
+      emailContainer.classList.add("hidden");
+      phoneContainer.classList.add("hidden");
+      setModalState(false);
     } catch {
       alert("Something went wrong. Please try again.");
     } finally {
