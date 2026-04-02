@@ -452,34 +452,6 @@ footer {
   .form-field-wide {
     grid-column: auto;
   }
-
-  .pricing-grid {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(78vw, 320px);
-    gap: 18px;
-    overflow-x: auto;
-    padding: 8px 6vw 14px;
-    margin: 0 -16px;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .pricing-grid::-webkit-scrollbar {
-    display: none;
-  }
-
-  .pricing-option {
-    scroll-snap-align: center;
-  }
-
-  .pricing-option-body {
-    padding: 22px 20px 24px;
-  }
-
-  .pricing-option h3 {
-    font-size: clamp(1.7rem, 6vw, 2.2rem);
-  }
 }
 
 /* POPUP */
@@ -554,6 +526,10 @@ footer {
   color: rgba(255,255,255,0.82);
   font-size: 1.02rem;
   line-height: 1.7;
+}
+
+.pricing-mobile-hint {
+  display: none;
 }
 
 .pricing-grid {
@@ -664,6 +640,59 @@ footer {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 400;
   margin: 0;
+}
+
+@media (max-width: 768px) {
+  .pricing-header {
+    margin-bottom: 22px;
+  }
+
+  .pricing-mobile-hint {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 18px auto 0;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.92);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(82vw, 82vw);
+    gap: 14px;
+    overflow-x: auto;
+    margin: 0 -16px;
+    padding: 8px 16px 14px;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 16px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .pricing-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pricing-option {
+    min-height: 100%;
+    cursor: pointer;
+    scroll-snap-align: start;
+  }
+
+  .pricing-option-body {
+    padding: 22px 20px 24px;
+  }
+
+  .pricing-option h3 {
+    font-size: clamp(1.7rem, 7vw, 2.2rem);
+  }
 }
 
 #about {

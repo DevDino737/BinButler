@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const otherContainer = document.getElementById("other-container");
   const popup = document.getElementById("successPopup");
   const closePopup = document.getElementById("closePopup");
+  const pricingCards = document.querySelectorAll(".pricing-option");
   const contactMethod = document.getElementById("contact_method");
   const emailContainer = document.getElementById("email-input-container");
   const phoneContainer = document.getElementById("phone-input-container");
@@ -40,6 +41,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.key === "Escape" && !signupModal.classList.contains("hidden")) {
       setModalState(false);
     }
+  });
+
+  pricingCards.forEach((card) => {
+    card.addEventListener("click", () => {
+      if (window.innerWidth <= 768) {
+        card.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+      }
+    });
   });
 
   // Show "other" bin location
