@@ -664,21 +664,19 @@ footer {
   }
 
   .pricing-grid {
-    display: grid;
-    grid-template-columns: none;
-    grid-template-rows: auto;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(82vw, 82vw);
+    display: flex;
+    flex-wrap: nowrap;
     gap: 14px;
-    width: 100%;
-    max-width: none;
+    width: calc(100% + 16px);
+    max-width: calc(100% + 16px);
     overflow-x: auto;
     overflow-y: hidden;
-    margin: 0 -16px;
-    padding: 8px 16px 14px;
+    margin: 0;
+    padding: 8px 0 8px 16px;
     scroll-snap-type: x mandatory;
     scroll-padding-left: 16px;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
 
   .pricing-grid::-webkit-scrollbar {
@@ -686,6 +684,7 @@ footer {
   }
 
   .pricing-option {
+    flex: 0 0 82vw;
     align-self: start;
     cursor: pointer;
     scroll-snap-align: start;
