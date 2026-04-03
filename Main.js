@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const popup = document.getElementById("successPopup");
   const closePopup = document.getElementById("closePopup");
   const pricingSection = document.getElementById("pricing");
+  const pricingGrid = pricingSection?.querySelector(".pricing-grid") || null;
   const pricingCards = document.querySelectorAll(".pricing-option");
   const primaryPricingCard = document.querySelector('.pricing-option[data-primary="true"]');
   const contactMethod = document.getElementById("contact_method");
@@ -18,8 +19,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const submitButton = signupForm.querySelector('input[type="submit"]');
   const defaultSubmitText = submitButton?.value || "Submit Request";
   const centerPrimaryPricingCard = (behavior = "auto") => {
-    if (window.innerWidth <= 768 && primaryPricingCard) {
-      primaryPricingCard.scrollIntoView({ behavior, inline: "center", block: "nearest" });
+    if (window.innerWidth <= 768 && pricingGrid && primaryPricingCard) {
+      const targetScrollLeft =
+        primaryPricingCard.offsetLeft - (pricingGrid.clientWidth - primaryPricingCard.clientWidth) / 2;
+
+      pricingGrid.scrollTo({
+        left: Math.max(0, targetScrollLeft),
+        behavior,
+      });
     }
   };
   const setModalState = (isOpen) => {
@@ -50,21 +57,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  if (window.innerWidth <= 768 && pricingSection && pricingCards.length > 0) {
-    let hasCenteredPricingCard = false;
-    const pricingObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasCenteredPricingCard) {
-            hasCenteredPricingCard = true;
-            centerPrimaryPricingCard("auto");
-          }
-        });
-      },
-      { threshold: 0.35 }
-    );
+  if (window.innerWidth <= 768 && pricingGrid && primaryPricingCard) {
+    requestAnimationFrame(() => {
+      centerPrimaryPricingCard("auto");
+    });
 
-    pricingObserver.observe(pricingSection);
+    window.addEventListener("load", () => {
+      centerPrimaryPricingCard("auto");
+    });
   }
 
   pricingCards.forEach((card) => {
