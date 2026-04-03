@@ -667,14 +667,15 @@ footer {
     display: flex;
     flex-wrap: nowrap;
     gap: 14px;
-    width: calc(100% + 16px);
-    max-width: calc(100% + 16px);
+    width: 100vw;
+    max-width: 100vw;
     overflow-x: auto;
     overflow-y: hidden;
-    margin: 0;
-    padding: 8px 0 8px 16px;
+    margin-left: calc(50% - 50vw);
+    padding: 8px calc((100vw - 78vw) / 2) 8px;
+    scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
-    scroll-padding-left: 16px;
+    scroll-padding-inline: calc((100vw - 78vw) / 2);
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
@@ -684,10 +685,10 @@ footer {
   }
 
   .pricing-option {
-    flex: 0 0 82vw;
+    flex: 0 0 78vw;
     align-self: start;
     cursor: pointer;
-    scroll-snap-align: start;
+    scroll-snap-align: center;
   }
 
   .pricing-option-body {

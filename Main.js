@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
   pricingCards.forEach((card) => {
     card.addEventListener("click", () => {
       if (window.innerWidth <= 768) {
-        card.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+        card.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
       }
     });
   });
