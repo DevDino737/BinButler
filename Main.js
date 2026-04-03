@@ -15,6 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const phoneInput = document.getElementById("contact_phone");
   const submitButton = signupForm.querySelector('input[type="submit"]');
   const defaultSubmitText = submitButton?.value || "Submit Request";
+  const centerPrimaryPricingCard = (behavior = "auto") => {
+    if (window.innerWidth <= 768 && pricingCards.length > 0) {
+      pricingCards[0].scrollIntoView({ behavior, inline: "center", block: "nearest" });
+    }
+  };
   const setModalState = (isOpen) => {
     signupModal.classList.toggle("hidden", !isOpen);
     signupModal.setAttribute("aria-hidden", String(!isOpen));
@@ -43,11 +48,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  if (window.innerWidth <= 768 && pricingCards.length > 0) {
-    requestAnimationFrame(() => {
-      pricingCards[0].scrollIntoView({ behavior: "auto", inline: "center", block: "nearest" });
-    });
-  }
+  requestAnimationFrame(() => {
+    centerPrimaryPricingCard("auto");
+  });
+
+  window.addEventListener("load", () => {
+    centerPrimaryPricingCard("auto");
+  });
 
   pricingCards.forEach((card) => {
     card.addEventListener("click", () => {
