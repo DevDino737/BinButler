@@ -552,6 +552,10 @@ footer {
   transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
 }
 
+.pricing-option[data-primary="true"] {
+  order: -1;
+}
+
 .pricing-option:hover,
 .pricing-option:focus-within,
 .pricing-option:active {
@@ -643,6 +647,10 @@ footer {
 }
 
 @media (max-width: 768px) {
+  .pricing-option[data-primary="true"] {
+    order: 0;
+  }
+
   .pricing-header {
     margin-bottom: 22px;
   }
