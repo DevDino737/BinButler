@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const closePopup = document.getElementById("closePopup");
   const pricingSection = document.getElementById("pricing");
   const pricingCards = document.querySelectorAll(".pricing-option");
+  const primaryPricingCard = document.querySelector('.pricing-option[data-primary="true"]');
   const contactMethod = document.getElementById("contact_method");
   const emailContainer = document.getElementById("email-input-container");
   const phoneContainer = document.getElementById("phone-input-container");
@@ -17,8 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const submitButton = signupForm.querySelector('input[type="submit"]');
   const defaultSubmitText = submitButton?.value || "Submit Request";
   const centerPrimaryPricingCard = (behavior = "auto") => {
-    if (window.innerWidth <= 768 && pricingCards.length > 0) {
-      pricingCards[0].scrollIntoView({ behavior, inline: "center", block: "nearest" });
+    if (window.innerWidth <= 768 && primaryPricingCard) {
+      primaryPricingCard.scrollIntoView({ behavior, inline: "center", block: "nearest" });
     }
   };
   const setModalState = (isOpen) => {
