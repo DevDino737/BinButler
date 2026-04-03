@@ -43,6 +43,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  if (window.innerWidth <= 768 && pricingCards.length > 0) {
+    requestAnimationFrame(() => {
+      pricingCards[0].scrollIntoView({ behavior: "auto", inline: "center", block: "nearest" });
+    });
+  }
+
   pricingCards.forEach((card) => {
     card.addEventListener("click", () => {
       if (window.innerWidth <= 768) {
