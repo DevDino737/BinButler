@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const otherContainer = document.getElementById("other-container");
   const popup = document.getElementById("successPopup");
   const closePopup = document.getElementById("closePopup");
+  const pricingSection = document.getElementById("pricing");
   const pricingCards = document.querySelectorAll(".pricing-option");
   const contactMethod = document.getElementById("contact_method");
   const emailContainer = document.getElementById("email-input-container");
@@ -48,13 +49,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  requestAnimationFrame(() => {
-    centerPrimaryPricingCard("auto");
-  });
+  if (window.innerWidth <= 768 && pricingSection && pricingCards.length > 0) {
+    let hasCenteredPricingCard = false;
+    const pricingObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasCenteredPricingCard) {
+            hasCenteredPricingCard = true;
+            centerPrimaryPricingCard("auto");
+          }
+        });
+      },
+      { threshold: 0.35 }
+    );
 
-  window.addEventListener("load", () => {
-    centerPrimaryPricingCard("auto");
-  });
+    pricingObserver.observe(pricingSection);
+  }
 
   pricingCards.forEach((card) => {
     card.addEventListener("click", () => {
