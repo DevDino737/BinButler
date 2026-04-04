@@ -58,12 +58,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  document.addEventListener("click", (event) => {
+  document.addEventListener("pointerdown", (event) => {
+    const target = event.target;
+
     if (
       window.innerWidth <= 768 &&
       navbar?.classList.contains("nav-open") &&
-      event.target instanceof Node &&
-      !navbar.contains(event.target)
+      target instanceof Element &&
+      !target.closest(".navbar")
     ) {
       setNavState(false);
     }
