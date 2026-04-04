@@ -58,6 +58,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  document.addEventListener("click", (event) => {
+    if (
+      window.innerWidth <= 768 &&
+      navbar?.classList.contains("nav-open") &&
+      event.target instanceof Node &&
+      !navbar.contains(event.target)
+    ) {
+      setNavState(false);
+    }
+  });
+
   // Open form
   openFormBtn.addEventListener("click", () => {
     setModalState(true);
