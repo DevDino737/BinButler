@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const navbar = document.querySelector(".navbar");
+  const navToggle = document.querySelector(".nav-toggle");
+  const navLinks = document.querySelectorAll(".nav-links a");
   const openFormBtn = document.getElementById("openForm");
   const signupModal = document.getElementById("signupModal");
   const closeFormBtn = document.getElementById("closeForm");
@@ -18,6 +21,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const phoneInput = document.getElementById("contact_phone");
   const submitButton = signupForm.querySelector('input[type="submit"]');
   const defaultSubmitText = submitButton?.value || "Submit Request";
+  const setNavState = (isOpen) => {
+    if (!navbar || !navToggle) return;
+
+    navbar.classList.toggle("nav-open", isOpen);
+    navToggle.setAttribute("aria-expanded", String(isOpen));
+    navToggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
+  };
   const centerPrimaryPricingCard = (behavior = "auto") => {
     if (window.innerWidth <= 768 && pricingGrid && primaryPricingCard) {
       const targetScrollLeft =
@@ -36,9 +46,22 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.style.overflow = isOpen ? "hidden" : "";
   };
 
+  navToggle?.addEventListener("click", () => {
+    setNavState(!navbar?.classList.contains("nav-open"));
+  });
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      if (window.innerWidth <= 768) {
+        setNavState(false);
+      }
+    });
+  });
+
   // Open form
   openFormBtn.addEventListener("click", () => {
     setModalState(true);
+    setNavState(false);
   });
 
   closeFormBtn.addEventListener("click", () => {
@@ -52,8 +75,18 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && navbar?.classList.contains("nav-open")) {
+      setNavState(false);
+    }
+
     if (event.key === "Escape" && !signupModal.classList.contains("hidden")) {
       setModalState(false);
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 768) {
+      setNavState(false);
     }
   });
 
