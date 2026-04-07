@@ -216,11 +216,11 @@ nav {
 }
 
 .signup-banner {
-  margin: 24px auto 28px;
-  padding: 18px 20px;
+  margin: 30px auto 32px;
+  padding: 22px 24px;
   max-width: 360px;
   border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 18px;
+  border-radius: 22px;
   background:
     linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.05)),
     rgba(8, 25, 12, 0.45);
@@ -256,6 +256,12 @@ nav {
   margin: 0;
   font-size: 0.95rem;
   color: rgba(255,255,255,0.86);
+}
+
+.signup-banner-message {
+  max-width: 28ch;
+  margin: 0 auto;
+  line-height: 1.7;
 }
 
 /* SIGNUP CARD */
@@ -508,6 +514,9 @@ footer {
   }
 
   .signup-banner {
+    width: min(100%, 380px);
+    margin: 32px auto 20px;
+    padding: 24px 20px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -520,6 +529,16 @@ footer {
     flex-direction: column;
     align-items: center;
     gap: 6px;
+  }
+
+  .signup-banner-label {
+    letter-spacing: 0.18em;
+  }
+
+  .signup-banner-message {
+    max-width: 24ch;
+    font-size: 1rem;
+    line-height: 1.75;
   }
 
   .signup-modal {
@@ -1005,6 +1024,25 @@ textarea:focus {
 }
 
 @media (max-width: 480px) {
+  .hero-left h1 {
+    margin-bottom: 18px;
+  }
+
+  .hero-left p {
+    max-width: 30ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .signup-banner {
+    padding: 24px 18px;
+    border-radius: 20px;
+  }
+
+  .signup-banner-message {
+    max-width: 22ch;
+  }
+
   .pricing {
     padding-left: 16px;
     padding-right: 16px;
