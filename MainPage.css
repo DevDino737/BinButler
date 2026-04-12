@@ -204,15 +204,6 @@ nav {
   text-align: center;
 }
 
-.hero-eyebrow {
-  margin: 0 0 12px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.78);
-}
-
 .hero-left h1 {
   font-size: clamp(2.4rem, 5vw, 4.3rem);
   line-height: 0.95;
@@ -226,9 +217,47 @@ nav {
 
 .hero-copy {
   max-width: 34ch;
+  margin-top: 0;
+  margin-bottom: 22px;
   margin-left: auto;
   margin-right: auto;
   color: rgba(255,255,255,0.92);
+  font-size: 1rem;
+  line-height: 1.45;
+  text-wrap: balance;
+}
+
+.hero-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 520px;
+  margin: 0 auto 28px;
+}
+
+.hero-highlight {
+  padding: 14px 12px;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 18px;
+  background: rgba(6, 33, 14, 0.2);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+}
+
+.hero-highlight-kicker {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.68);
+}
+
+.hero-highlight strong {
+  display: block;
+  font-size: 0.95rem;
+  line-height: 1.35;
+  color: #fff;
 }
 
 .signup-banner {
@@ -527,12 +556,6 @@ footer {
     max-width: 100%;
   }
 
-  .hero-eyebrow {
-    margin-bottom: 10px;
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
-  }
-
   .hero-left h1 {
     max-width: 9ch;
     margin-left: auto;
@@ -545,6 +568,23 @@ footer {
     max-width: 26ch;
     font-size: 1rem;
     line-height: 1.55;
+    margin-bottom: 18px;
+  }
+
+  .hero-highlights {
+    grid-template-columns: 1fr;
+    width: min(100%, 360px);
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  .hero-highlight {
+    padding: 13px 14px;
+    text-align: left;
+  }
+
+  .hero-highlight strong {
+    font-size: 0.92rem;
   }
 
   .signup-banner {
