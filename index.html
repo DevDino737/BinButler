@@ -93,9 +93,10 @@
       <form
         id="signupForm"
         class="hidden"
-        action="https://script.google.com/macros/s/AKfycbxsR1OXLdTX06RcFgDMrmrUqx4HVJrPCNxSChpWfTWOJWDcOVBoFo5nzlcaeFAZEqAmhg/exec"
+        action="https://script.google.com/macros/s/AKfycbwSc2RsPuqBIQLpygjKWLdLa5ZKcNZ0xpebNv9bfyN6L-OOQw1lsdpLOSiQEvTrOnsdGA/exec"
         method="post"
       >
+        <input type="hidden" name="request_type" value="signup" />
         <div class="form-grid">
           <div class="form-field">
             <label for="first_name">First Name</label>
@@ -200,7 +201,13 @@
         <p>Use this form if you already signed up and want to schedule one pickup.</p>
       </div>
 
-      <form id="pickupRequestForm" class="hidden">
+      <form
+        id="pickupRequestForm"
+        class="hidden"
+        action="https://script.google.com/macros/s/AKfycbwSc2RsPuqBIQLpygjKWLdLa5ZKcNZ0xpebNv9bfyN6L-OOQw1lsdpLOSiQEvTrOnsdGA/exec"
+        method="post"
+      >
+        <input type="hidden" name="request_type" value="pickup_request" />
         <div class="form-grid">
           <div class="form-field">
             <label for="pickup_name">Full Name</label>
@@ -224,7 +231,6 @@
               <option value="trash">Trash</option>
               <option value="recycling">Recycling</option>
               <option value="yard_waste">Yard Waste</option>
-              <option value="multiple">Multiple Bins</option>
             </select>
           </div>
 

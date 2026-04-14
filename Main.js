@@ -31,6 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const phoneInput = document.getElementById("contact_phone");
   const submitButton = signupForm.querySelector('input[type="submit"]');
   const defaultSubmitText = submitButton?.value || "Submit Request";
+  const pickupSubmitButton = pickupRequestForm.querySelector('input[type="submit"]');
+  const defaultPickupSubmitText = pickupSubmitButton?.value || "Send Pickup Request";
   const setNavState = (isOpen) => {
     if (!navbar || !navToggle) return;
 
@@ -231,12 +233,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  pickupRequestForm.addEventListener("submit", (event) => {
+  pickupRequestForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    pickupSuccessPopup.classList.remove("hidden");
-    pickupRequestForm.reset();
-    setPickupModalState(false);
+    if (pickupSubmitButton) {
+      pickupSubmitButton.disabled = true;
+      pickupSubmitButton.value = "Sending...";
+      pickupSubmitButton.classList.add("is-loading");
+    }
+
+    try {
+      await fetch(pickupRequestForm.action, { method: "POST", body: new FormData(pickupRequestForm) });
+
+      pickupSuccessPopup.classList.remove("hidden");
+      pickupRequestForm.reset();
+      setPickupModalState(false);
+    } catch {
+      alert("Something went wrong. Please try again.");
+    } finally {
+      if (pickupSubmitButton) {
+        pickupSubmitButton.disabled = false;
+        pickupSubmitButton.value = defaultPickupSubmitText;
+        pickupSubmitButton.classList.remove("is-loading");
+      }
+    }
   });
 
   // Close popup
