@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const signupModal = document.getElementById("signupModal");
   const closeFormBtn = document.getElementById("closeForm");
   const signupForm = document.getElementById("signupForm");
+  const selectedPlan = document.getElementById("selected_plan");
+  const serviceDateContainer = document.getElementById("service-date-container");
+  const serviceDateInput = document.getElementById("service_date");
   const binSelect = document.getElementById("bin_location");
   const otherContainer = document.getElementById("other-container");
   const popup = document.getElementById("successPopup");
@@ -121,6 +124,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  const syncServiceDateField = () => {
+    const showServiceDate = selectedPlan.value === "on_demand";
+
+    serviceDateContainer.classList.toggle("hidden", !showServiceDate);
+    serviceDateInput.required = showServiceDate;
+
+    if (!showServiceDate) {
+      serviceDateInput.value = "";
+    }
+  };
+
+  selectedPlan.addEventListener("change", syncServiceDateField);
+  syncServiceDateField();
+
   // Show "other" bin location
   binSelect.addEventListener("change", () => {
     otherContainer.classList.toggle("hidden", binSelect.value !== "other");
@@ -160,6 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
       popup.classList.remove("hidden");
 
       signupForm.reset();
+      syncServiceDateField();
       otherContainer.classList.add("hidden");
       emailContainer.classList.add("hidden");
       phoneContainer.classList.add("hidden");

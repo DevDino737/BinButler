@@ -200,6 +200,9 @@ nav {
 }
 
 .hero-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   max-width: 420px;
   text-align: center;
 }
@@ -283,6 +286,7 @@ nav {
 .signup-banner-message {
   max-width: 28ch;
   margin: 0 auto;
+  text-align: center;
   line-height: 1.7;
 }
 
