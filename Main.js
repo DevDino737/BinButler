@@ -3,9 +3,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const navToggle = document.querySelector(".nav-toggle");
   const navLinks = document.querySelectorAll(".nav-links a");
   const openFormBtn = document.getElementById("openForm");
+  const openPickupRequestBtn = document.getElementById("openPickupRequest");
   const signupModal = document.getElementById("signupModal");
   const closeFormBtn = document.getElementById("closeForm");
   const signupForm = document.getElementById("signupForm");
+  const pickupRequestModal = document.getElementById("pickupRequestModal");
+  const closePickupRequestBtn = document.getElementById("closePickupRequest");
+  const pickupRequestForm = document.getElementById("pickupRequestForm");
+  const pickupDateInput = document.getElementById("pickup_date");
   const selectedPlan = document.getElementById("selected_plan");
   const serviceDateContainer = document.getElementById("service-date-container");
   const serviceDateInput = document.getElementById("service_date");
@@ -13,6 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const otherContainer = document.getElementById("other-container");
   const popup = document.getElementById("successPopup");
   const closePopup = document.getElementById("closePopup");
+  const pickupSuccessPopup = document.getElementById("pickupSuccessPopup");
+  const closePickupPopup = document.getElementById("closePickupPopup");
   const pricingSection = document.getElementById("pricing");
   const pricingGrid = pricingSection?.querySelector(".pricing-grid") || null;
   const pricingCards = document.querySelectorAll(".pricing-option");
@@ -48,6 +55,12 @@ document.addEventListener("DOMContentLoaded", () => {
     signupForm.classList.toggle("hidden", !isOpen);
     document.body.style.overflow = isOpen ? "hidden" : "";
   };
+  const setPickupModalState = (isOpen) => {
+    pickupRequestModal.classList.toggle("hidden", !isOpen);
+    pickupRequestModal.setAttribute("aria-hidden", String(!isOpen));
+    pickupRequestForm.classList.toggle("hidden", !isOpen);
+    document.body.style.overflow = isOpen ? "hidden" : "";
+  };
 
   navToggle?.addEventListener("click", () => {
     setNavState(!navbar?.classList.contains("nav-open"));
@@ -77,6 +90,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // Open form
   openFormBtn.addEventListener("click", () => {
     setModalState(true);
+    setPickupModalState(false);
+    setNavState(false);
+  });
+
+  openPickupRequestBtn.addEventListener("click", () => {
+    setPickupModalState(true);
+    setModalState(false);
     setNavState(false);
   });
 
@@ -84,9 +104,19 @@ document.addEventListener("DOMContentLoaded", () => {
     setModalState(false);
   });
 
+  closePickupRequestBtn.addEventListener("click", () => {
+    setPickupModalState(false);
+  });
+
   signupModal.addEventListener("click", (event) => {
     if (event.target instanceof HTMLElement && event.target.dataset.closeForm === "true") {
       setModalState(false);
+    }
+  });
+
+  pickupRequestModal.addEventListener("click", (event) => {
+    if (event.target instanceof HTMLElement && event.target.dataset.closePickup === "true") {
+      setPickupModalState(false);
     }
   });
 
@@ -97,6 +127,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (event.key === "Escape" && !signupModal.classList.contains("hidden")) {
       setModalState(false);
+    }
+
+    if (event.key === "Escape" && !pickupRequestModal.classList.contains("hidden")) {
+      setPickupModalState(false);
     }
   });
 
@@ -137,6 +171,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   selectedPlan.addEventListener("change", syncServiceDateField);
   syncServiceDateField();
+
+  if (pickupDateInput) {
+    pickupDateInput.min = new Date().toISOString().split("T")[0];
+  }
 
   // Show "other" bin location
   binSelect.addEventListener("change", () => {
@@ -193,8 +231,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  pickupRequestForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    pickupSuccessPopup.classList.remove("hidden");
+    pickupRequestForm.reset();
+    setPickupModalState(false);
+  });
+
   // Close popup
   closePopup.addEventListener("click", () => {
     popup.classList.add("hidden");
+  });
+
+  closePickupPopup.addEventListener("click", () => {
+    pickupSuccessPopup.classList.add("hidden");
   });
 });

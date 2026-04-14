@@ -77,6 +77,8 @@
   <div class="hero-right signup-card fade-up">
     <h2>Sign Up Today</h2>
     <button id="openForm" type="button">Tap to Sign Up</button>
+    <p class="signup-card-helper">Already signed up?</p>
+    <button id="openPickupRequest" class="signup-card-secondary" type="button">Request a Pickup</button>
   </div>
 
   <div id="signupModal" class="signup-modal hidden" aria-hidden="true">
@@ -185,6 +187,67 @@
         <input type="submit" value="Submit Request" />
         <p class="micro-copy">No payment required until confirmation</p>
       </form>
+    </div>
+  </div>
+
+  <div id="pickupRequestModal" class="signup-modal hidden" aria-hidden="true">
+    <div class="signup-modal-backdrop" data-close-pickup="true"></div>
+    <div class="signup-modal-card signup-modal-card-compact" role="dialog" aria-modal="true" aria-labelledby="pickupRequestTitle">
+      <button id="closePickupRequest" class="signup-modal-close" type="button" aria-label="Close pickup request form">×</button>
+      <div class="signup-modal-header">
+        <p class="signup-modal-eyebrow">Existing Members</p>
+        <h2 id="pickupRequestTitle">Request a pickup</h2>
+        <p>Use this form if you already signed up and want to schedule one pickup.</p>
+      </div>
+
+      <form id="pickupRequestForm" class="hidden">
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="pickup_name">Full Name</label>
+            <input id="pickup_name" type="text" name="pickup_name" placeholder="Your name" required />
+          </div>
+
+          <div class="form-field">
+            <label for="pickup_address">Address</label>
+            <input id="pickup_address" type="text" name="pickup_address" placeholder="Service address" required />
+          </div>
+
+          <div class="form-field">
+            <label for="pickup_date">Requested Pickup Date</label>
+            <input id="pickup_date" type="date" name="pickup_date" required />
+          </div>
+
+          <div class="form-field">
+            <label for="pickup_bin_type">Bin Type</label>
+            <select id="pickup_bin_type" name="pickup_bin_type" required>
+              <option value="">Choose one</option>
+              <option value="trash">Trash</option>
+              <option value="recycling">Recycling</option>
+              <option value="yard_waste">Yard Waste</option>
+              <option value="multiple">Multiple Bins</option>
+            </select>
+          </div>
+
+          <div class="form-field form-field-wide">
+            <label for="pickup_notes">Notes</label>
+            <textarea id="pickup_notes" name="pickup_notes" placeholder="Gate code, where bins are, or anything helpful"></textarea>
+          </div>
+        </div>
+
+        <input type="submit" value="Send Pickup Request" />
+        <p class="micro-copy">We’ll confirm your request and let you know how many travel-plan pickups you have left.</p>
+      </form>
+    </div>
+  </div>
+
+  <div id="pickupSuccessPopup" class="popup hidden">
+    <div class="popup-card">
+      <h2>Pickup Request Sent</h2>
+      <p>
+        We received your pickup request.<br />
+        BinButler will follow up shortly to confirm the date.
+      </p>
+      <button id="closePickupPopup">Got it</button>
     </div>
   </div>
 </section>
