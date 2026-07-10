@@ -357,6 +357,11 @@
     border-radius:20px;
   }
 
+  .pricing-option[data-primary="true"]{
+
+    order:-1;
+  }
+
   .pricing-option-image{
 
     aspect-ratio:16 / 9;
