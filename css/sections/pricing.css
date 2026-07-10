@@ -362,6 +362,11 @@
     order:-1;
   }
 
+  .pricing-grid .pricing-option:first-child{
+
+    order:1;
+  }
+
   .pricing-option-image{
 
     aspect-ratio:16 / 9;
