@@ -1,0 +1,109 @@
+/* SIGNUP MODAL */
+
+.signup-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 1900;
+}
+
+.signup-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(6px);
+}
+
+.signup-modal-card {
+  position: relative;
+  width: min(760px, 100%);
+  max-height: min(90vh, 860px);
+  overflow-y: auto;
+
+  border: 1px solid rgba(var(--fg-rgb),0.14);
+  border-radius: 24px;
+
+  padding: 28px;
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--bg-modal-1),
+      var(--bg-modal-2)
+    );
+
+  box-shadow: 0 32px 80px rgba(0,0,0,0.55);
+
+  z-index: 1;
+}
+
+.signup-modal-card-compact {
+  width: min(620px, 100%);
+}
+
+.signup-modal-header {
+  padding-right: 44px;
+  margin-bottom: 22px;
+}
+
+.signup-modal-header h2 {
+  margin: 8px 0 10px;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.02;
+}
+
+.signup-modal-header p {
+  margin: 0;
+  color: rgba(var(--fg-rgb),0.76);
+  line-height: 1.6;
+}
+
+.signup-modal-eyebrow {
+  margin: 0;
+  color: var(--accent-mint);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.signup-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+
+  width: 42px;
+  height: 42px;
+
+  border: 1px solid rgba(var(--fg-rgb),0.16);
+  border-radius: 999px;
+
+  background: rgba(var(--fg-rgb),0.08);
+
+  color: var(--text-primary);
+
+  font-size: 1.5rem;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .signup-modal {
+    padding: 16px;
+    align-items: flex-start;
+  }
+
+  .signup-modal-card {
+    margin-top: 84px;
+    padding: 22px 18px;
+    max-height: calc(100vh - 100px);
+  }
+
+  .signup-modal-header {
+    padding-right: 36px;
+  }
+}

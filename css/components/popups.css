@@ -1,0 +1,70 @@
+/* POPUP */
+
+.popup {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.7);
+
+  z-index: 2000;
+}
+
+.popup-card {
+  max-width: 320px;
+
+  padding: 24px;
+
+  text-align: center;
+
+  border-radius: 18px;
+
+  background: linear-gradient(
+    180deg,
+    var(--bg-6),
+    var(--bg-2)
+  );
+
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+
+  animation: popIn 0.4s ease;
+}
+
+.popup-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(74, 222, 128, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+}
+
+.popup-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--accent-icon);
+  stroke-width: 3;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.popup-card h2 {
+  margin-bottom: 10px;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

@@ -1,0 +1,67 @@
+:root {
+  color-scheme: dark light;
+
+  --fg-rgb: 255,255,255;
+  --text-primary: #ffffff;
+
+  --bg-1: #131316;
+  --bg-2: #17171a;
+  --bg-3: #15151a;
+  --bg-4: #1a1a1d;
+  --bg-5: #1c1c1f;
+  --bg-6: #1e1e21;
+
+  --bg-nav: rgba(0,0,0,0.75);
+  --border-footer: #2a2a2e;
+
+  --bg-card-1: rgba(29,29,32,0.96);
+  --bg-card-2: rgba(21,21,24,0.96);
+
+  --bg-signup-card: rgba(26,26,29,0.75);
+
+  --bg-modal-1: rgba(23,23,23,0.98);
+  --bg-modal-2: rgba(10,10,10,0.96);
+
+  --bg-btn-secondary: rgba(24,24,27,0.78);
+  --bg-btn-secondary-hover: rgba(15,15,15,0.5);
+
+  --bg-input: #1a1a1a;
+
+  --accent-mint: #9be8b4;
+  --accent-icon: #4ade80;
+  --select-arrow: %23ffffff;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --fg-rgb: 20,20,22;
+    --text-primary: #16181a;
+
+    --bg-1: #ffffff;
+    --bg-2: #f7f7f8;
+    --bg-3: #f5f5f6;
+    --bg-4: #f0f0f1;
+    --bg-5: #ececed;
+    --bg-6: #e7e7e9;
+
+    --bg-nav: rgba(255,255,255,0.85);
+    --border-footer: #e2e2e4;
+
+    --bg-card-1: rgba(255,255,255,0.96);
+    --bg-card-2: rgba(246,247,246,0.96);
+
+    --bg-signup-card: rgba(255,255,255,0.82);
+
+    --bg-modal-1: rgba(255,255,255,0.98);
+    --bg-modal-2: rgba(248,248,248,0.98);
+
+    --bg-btn-secondary: rgba(255,255,255,0.75);
+    --bg-btn-secondary-hover: rgba(238,238,238,0.7);
+
+    --bg-input: #ffffff;
+
+    --accent-mint: #157a3d;
+    --accent-icon: #16a34a;
+    --select-arrow: %23444444;
+  }
+}
