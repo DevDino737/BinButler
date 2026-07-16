@@ -10,6 +10,9 @@ export function initPickupModal() {
   const signupModal = document.getElementById("signupModal");
   const signupForm = document.getElementById("signupForm");
 
+  const reviewModal = document.getElementById("reviewModal");
+  const reviewForm = document.getElementById("reviewForm");
+
   const pickupDateInput = document.getElementById("pickup_date");
 
   const setNavState = (isOpen) => {
@@ -38,9 +41,17 @@ export function initPickupModal() {
     document.body.style.overflow = isOpen ? "hidden" : "";
   };
 
+  const setReviewModalState = (isOpen) => {
+    reviewModal?.classList.toggle("hidden", !isOpen);
+    reviewModal?.setAttribute("aria-hidden", String(!isOpen));
+    reviewForm?.classList.toggle("hidden", !isOpen);
+    document.body.style.overflow = isOpen ? "hidden" : "";
+  };
+
   openPickupRequestBtn?.addEventListener("click", () => {
     setPickupModalState(true);
     setModalState(false);
+    setReviewModalState(false);
     setNavState(false);
   });
 

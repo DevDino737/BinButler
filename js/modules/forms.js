@@ -16,8 +16,11 @@ export function initForms() {
   const emailInput = document.getElementById("contact_email");
   const phoneInput = document.getElementById("contact_phone");
 
+  const reviewForm = document.getElementById("reviewForm");
+
   const popup = document.getElementById("successPopup");
   const pickupSuccessPopup = document.getElementById("pickupSuccessPopup");
+  const reviewSuccessPopup = document.getElementById("reviewSuccessPopup");
 
   const submitButton =
     signupForm?.querySelector('input[type="submit"]');
@@ -25,11 +28,17 @@ export function initForms() {
   const pickupSubmitButton =
     pickupRequestForm?.querySelector('input[type="submit"]');
 
+  const reviewSubmitButton =
+    reviewForm?.querySelector('input[type="submit"]');
+
   const defaultSubmitText =
     submitButton?.value || "Submit Request";
 
   const defaultPickupSubmitText =
     pickupSubmitButton?.value || "Send Pickup Request";
+
+  const defaultReviewSubmitText =
+    reviewSubmitButton?.value || "Submit Review";
 
   const syncServiceDateField = () => {
     const showServiceDate =
@@ -159,6 +168,52 @@ export function initForms() {
         pickupSubmitButton.value =
           defaultPickupSubmitText;
         pickupSubmitButton.classList.remove("is-loading");
+      }
+    }
+  });
+
+  reviewForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    // Honeypot check: real visitors never fill this hidden field, bots usually do.
+    const honeypot = document.getElementById("review_website");
+    if (honeypot && honeypot.value) {
+      // Pretend it worked so the bot doesn't learn it was caught, but send nothing.
+      reviewSuccessPopup?.classList.remove("hidden");
+      reviewForm.reset();
+      document.getElementById("reviewModal")?.classList.add("hidden");
+      document.body.style.overflow = "";
+      return;
+    }
+
+    if (reviewSubmitButton) {
+      reviewSubmitButton.disabled = true;
+      reviewSubmitButton.value = "Submitting...";
+      reviewSubmitButton.classList.add("is-loading");
+    }
+
+    try {
+      await fetch(reviewForm.action, {
+        method: "POST",
+        body: new FormData(reviewForm),
+      });
+
+      reviewSuccessPopup?.classList.remove("hidden");
+
+      reviewForm.reset();
+
+      document
+        .getElementById("reviewModal")
+        ?.classList.add("hidden");
+
+      document.body.style.overflow = "";
+    } catch {
+      alert("Something went wrong. Please try again.");
+    } finally {
+      if (reviewSubmitButton) {
+        reviewSubmitButton.disabled = false;
+        reviewSubmitButton.value = defaultReviewSubmitText;
+        reviewSubmitButton.classList.remove("is-loading");
       }
     }
   });

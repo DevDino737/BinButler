@@ -37,6 +37,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#rules">Rules</a></li>
       <li><a href="#faq">FAQ</a></li>
+      <li><a href="#" id="openReviewForm">Leave a Review</a></li>
     </ul>
   </nav>
 </header>
@@ -259,6 +260,78 @@
       <button id="closePickupPopup">Got it</button>
     </div>
   </div>
+
+  <div id="reviewModal" class="signup-modal hidden" aria-hidden="true">
+    <div class="signup-modal-backdrop" data-close-review="true"></div>
+    <div class="signup-modal-card signup-modal-card-compact" role="dialog" aria-modal="true" aria-labelledby="reviewModalTitle">
+      <button id="closeReviewForm" class="signup-modal-close" type="button" aria-label="Close review form">×</button>
+      <div class="signup-modal-header">
+        <p class="signup-modal-eyebrow">Existing Members</p>
+        <h2 id="reviewModalTitle">Leave a review</h2>
+        <p>Let your neighbors know how BinButler is working out for you.</p>
+      </div>
+
+      <form
+        id="reviewForm"
+        class="hidden"
+        action="https://script.google.com/macros/s/AKfycbxRMRPn3DovYXpsm6zjWBQGWu8J_6GZ0T2lD5ZfE8klSm3hNxr7FwjPL5YlbTxuW-g0Cw/exec"
+        method="post"
+      >
+        <input type="hidden" name="request_type" value="review" />
+
+        <!-- Honeypot: invisible to real visitors, bots tend to fill every field they find -->
+        <div style="position:absolute; left:-9999px; top:-9999px;" aria-hidden="true">
+          <label for="review_website">Website</label>
+          <input type="text" id="review_website" name="review_website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="review_name">Your Name</label>
+            <input id="review_name" type="text" name="review_name" placeholder="First name" required />
+          </div>
+
+          <div class="form-field">
+            <label for="review_city">City</label>
+            <input id="review_city" type="text" name="review_city" placeholder="e.g. Saint Peters, MO" required />
+          </div>
+
+          <div class="form-field">
+            <label for="review_rating">Rating</label>
+            <select id="review_rating" name="review_rating" required>
+              <option value="">Choose a rating</option>
+              <option value="5">★★★★★ (5)</option>
+              <option value="4">★★★★☆ (4)</option>
+              <option value="3">★★★☆☆ (3)</option>
+              <option value="2">★★☆☆☆ (2)</option>
+              <option value="1">★☆☆☆☆ (1)</option>
+            </select>
+          </div>
+
+          <div class="form-field form-field-wide">
+            <label for="review_quote">Your Review</label>
+            <textarea id="review_quote" name="review_quote" placeholder="Tell us how it's going" required></textarea>
+          </div>
+        </div>
+
+        <input type="submit" value="Submit Review" />
+        <p class="micro-copy">Reviews are checked before they're posted to the site.</p>
+      </form>
+    </div>
+  </div>
+
+  <div id="reviewSuccessPopup" class="popup hidden">
+    <div class="popup-card">
+      <div class="popup-icon">
+        <svg viewBox="0 0 24 24"><polyline points="4 12 10 18 20 6"></polyline></svg>
+      </div>
+      <h2>Thanks for the review!</h2>
+      <p>
+        We've received it and will get it posted to the site soon.
+      </p>
+      <button id="closeReviewPopup">Got it</button>
+    </div>
+  </div>
 </section>
 
 <!-- REVIEWS -->
@@ -349,6 +422,7 @@
           <li>One-time service whenever you need</li>
           <li>Best for a single trip</li>
         </ul>
+        <button type="button" class="pricing-choose-btn" data-plan="on_demand">Choose This Plan →</button>
       </div>
     </article>
 
@@ -365,6 +439,7 @@
           <li>Returned the following morning</li>
           <li>Best for one pickup a week</li>
         </ul>
+        <button type="button" class="pricing-choose-btn" data-plan="travel_plan">Choose This Plan →</button>
       </div>
     </article>
 
@@ -382,6 +457,7 @@
           <li>Built for busy and elderly families</li>
           <li>Best for full hands-off service, every collection day</li>
         </ul>
+        <button type="button" class="pricing-choose-btn" data-plan="main_plan">Choose This Plan →</button>
       </div>
     </article>
   </div>

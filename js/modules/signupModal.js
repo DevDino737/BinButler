@@ -10,6 +10,9 @@ export function initSignupModal() {
   const pickupRequestModal = document.getElementById("pickupRequestModal");
   const pickupRequestForm = document.getElementById("pickupRequestForm");
 
+  const reviewModal = document.getElementById("reviewModal");
+  const reviewForm = document.getElementById("reviewForm");
+
   const setNavState = (isOpen) => {
     if (!navbar || !navToggle) return;
 
@@ -36,9 +39,17 @@ export function initSignupModal() {
     document.body.style.overflow = isOpen ? "hidden" : "";
   };
 
+  const setReviewModalState = (isOpen) => {
+    reviewModal?.classList.toggle("hidden", !isOpen);
+    reviewModal?.setAttribute("aria-hidden", String(!isOpen));
+    reviewForm?.classList.toggle("hidden", !isOpen);
+    document.body.style.overflow = isOpen ? "hidden" : "";
+  };
+
   openFormBtn?.addEventListener("click", () => {
     setModalState(true);
     setPickupModalState(false);
+    setReviewModalState(false);
     setNavState(false);
   });
 
@@ -63,5 +74,26 @@ export function initSignupModal() {
     ) {
       setModalState(false);
     }
+  });
+
+  const planSelect = document.getElementById("selected_plan");
+  const chooseButtons = document.querySelectorAll(".pricing-choose-btn");
+
+  chooseButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+
+      const plan = button.dataset.plan;
+
+      if (planSelect && plan) {
+        planSelect.value = plan;
+        planSelect.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+
+      setModalState(true);
+      setPickupModalState(false);
+      setReviewModalState(false);
+      setNavState(false);
+    });
   });
 }

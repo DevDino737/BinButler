@@ -5,6 +5,7 @@ import { initPricing } from "./modules/pricing.js";
 import { initForms } from "./modules/forms.js";
 import { initPopups } from "./modules/popups.js";
 import { initReviews } from "./modules/reviews.js";
+import { initReviewModal } from "./modules/reviewModal.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   initNavbar();
@@ -14,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initForms();
   initPopups();
   initReviews();
+  initReviewModal();
 });
 
 document.addEventListener("contextmenu", (e) => {

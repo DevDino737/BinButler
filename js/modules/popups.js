@@ -10,11 +10,23 @@ export function initPopups() {
     "closePickupPopup"
   );
 
+  const reviewSuccessPopup = document.getElementById(
+    "reviewSuccessPopup"
+  );
+
+  const closeReviewPopup = document.getElementById(
+    "closeReviewPopup"
+  );
+
   closePopup?.addEventListener("click", () => {
     popup?.classList.add("hidden");
   });
 
   closePickupPopup?.addEventListener("click", () => {
     pickupSuccessPopup?.classList.add("hidden");
+  });
+
+  closeReviewPopup?.addEventListener("click", () => {
+    reviewSuccessPopup?.classList.add("hidden");
   });
 }
