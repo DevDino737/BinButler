@@ -72,28 +72,9 @@
   white-space: nowrap;
 }
 
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-
-  margin-top: 14px;
-  padding: 8px 16px;
-
-  border-radius: 999px;
-  border: 1px solid rgba(34,197,94,.35);
-
-  background: rgba(34,197,94,.1);
-
-  color: var(--accent-mint);
-
-  font-size: .82rem;
-  font-weight: 700;
-  letter-spacing: .02em;
-}
 
 /* ===========================
-   SIGNUP BANNER
+  SIGNUP BANNER
 =========================== */
 
 .signup-banner {
