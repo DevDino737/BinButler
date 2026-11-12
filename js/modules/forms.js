@@ -89,6 +89,17 @@ export function initForms() {
 
     if (popup && !popup.classList.contains("hidden")) return;
 
+    // Silently discard likely bot submissions without contacting the form endpoint.
+    const honeypot = document.getElementById("signup_website");
+    if (honeypot?.value) {
+      popup?.classList.remove("hidden");
+      signupForm.reset();
+      syncServiceDateField();
+      document.getElementById("signupModal")?.classList.add("hidden");
+      document.body.style.overflow = "";
+      return;
+    }
+
     if (submitButton) {
       submitButton.disabled = true;
       submitButton.value = "Submitting...";

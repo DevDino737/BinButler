@@ -89,6 +89,13 @@
         method="post"
       >
         <input type="hidden" name="request_type" value="signup" />
+
+        <!-- Honeypot: hidden from visitors; basic form bots may fill it. -->
+        <div style="position:absolute; left:-9999px; top:-9999px;" aria-hidden="true">
+          <label for="signup_website">Website</label>
+          <input type="text" id="signup_website" name="signup_website" tabindex="-1" autocomplete="off" />
+        </div>
+
         <div class="form-grid">
           <div class="form-field">
             <label for="first_name">First Name</label>
@@ -370,7 +377,7 @@
       </div>
       <div class="pricing-option-body">
         <p class="price-eyebrow">Worry-Free Travel Plan</p>
-        <h3>$15<span>/month</span></h3>
+        <h3>$20<span>/month</span></h3>
         <p class="price-desc">We bring your bin to the curb the night before pickup and return it the next day. Best for one weekly pickup, hands-off and simple.</p>
         <ul class="pricing-features">
           <li>Curb the night before pickup</li>
@@ -411,7 +418,7 @@
       <p class="about-eyebrow">ABOUT BINBUTLER</p>
       <h2>Simple local service, built with care.</h2>
       <p class="about-copy">
-      Hi! I’m Wyatt, a 15-year-old from St. Louis who started BinButler to make trash day easier for neighbors. Right now, we only serve O'Fallon, Saint Peters, Weldon Springs &amp; Cottleville. As a Christian company, our faith shapes how we work: the way we treat people, how we communicate, and the high standards we hold ourselves to every week! We are so grateful for every neighbor who helps make BinButler what it is today.
+      Hi! I’m Wyatt, a 16-year-old from St. Louis who started BinButler to make trash day easier for neighbors. Right now, we only serve O'Fallon, Saint Peters, Weldon Springs &amp; Cottleville. As a Christian company, our faith shapes how we work: the way we treat people, how we communicate, and the high standards we hold ourselves to every week! We are so grateful for every neighbor who helps make BinButler what it is today.
       </p>
     </div>
   </div>
@@ -478,7 +485,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
     </span>
     <strong>How do I pay?</strong>
-    <p>We accept cash and PayPal. You will be informed how to pay after signing up via email or text.</p>
+    <p>We accept Cash, PayPal and Venmo. You will be informed how to pay after signing up via email or text.</p>
   </div>
   <div class="faq-item">
     <span class="faq-icon">
